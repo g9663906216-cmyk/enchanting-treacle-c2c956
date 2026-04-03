@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E&amp;S AI Startups Directory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#FF6A00;--orange-d:#e05d00;--navy:#0B1F3B;
+  --bg:#F5F7FA;--card:#EEF2F6;--border:#D6DEE8;
+  --text:#1a2b42;--muted:#5a6a82;--white:#fff;
+  --sh:0 2px 12px rgba(11,31,59,.08);
+  --sh-lg:0 8px 36px rgba(11,31,59,.16);
+  --r:12px;--r-sm:7px;
+  --blue:#3B82F6;--blue-bg:#F0F6FF;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6;}
+
+/* NAV */
+nav{background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.22);}
+.logo{font-family:'DM Serif Display',serif;color:var(--white);font-size:1.18rem;font-weight:400;display:flex;align-items:center;gap:.55rem;cursor:pointer;}
+.logo .dot{width:10px;height:10px;background:var(--orange);border-radius:50%;display:inline-block;}
+.nav-links{display:flex;gap:.25rem;align-items:center;}
+.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;padding:.4rem .9rem;border-radius:var(--r-sm);font-size:.875rem;font-weight:500;transition:.16s;cursor:pointer;}
+.nav-links a:hover,.nav-links a.active{color:var(--white);background:rgba(255,255,255,.1);}
+.cmp-nav-btn{background:var(--orange)!important;color:var(--white)!important;border-radius:20px!important;font-weight:600!important;font-size:.8rem!important;padding:.4rem 1.1rem!important;}
+.cmp-nav-btn:hover{background:var(--orange-d)!important;}
+.cmp-badge{background:var(--white);color:var(--orange);border-radius:50%;width:19px;height:19px;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;margin-left:4px;}
+
+.page{display:none;}
+.page.active{display:block;animation:fadeUp .22s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* HOME */
+.home-hero{background:linear-gradient(135deg,var(--navy) 0%,#1a3a6b 100%);color:var(--white);padding:4.5rem 2rem 3.5rem;text-align:center;}
+.home-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.75rem);font-weight:400;margin-bottom:.75rem;}
+.home-hero p{color:rgba(255,255,255,.7);font-size:1rem;max-width:520px;margin:0 auto 2rem;}
+.srch-wrap{max-width:520px;margin:0 auto;position:relative;}
+.srch-wrap input{width:100%;padding:.9rem 1.25rem .9rem 3rem;border:none;border-radius:40px;font-size:.95rem;font-family:inherit;background:var(--white);color:var(--text);box-shadow:0 4px 20px rgba(0,0,0,.2);outline:none;transition:box-shadow .18s;}
+.srch-wrap input:focus{box-shadow:0 4px 28px rgba(255,106,0,.3);}
+.srch-icon{position:absolute;left:1.05rem;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;}
+.clusters-section{padding:3rem 2rem 3.5rem;max-width:1220px;margin:0 auto;}
+.clusters-section h2{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:400;color:var(--navy);margin-bottom:1.75rem;}
+.clusters-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+@media(max-width:900px){.clusters-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.clusters-grid{grid-template-columns:1fr;}.clusters-section{padding:2rem 1rem;}.home-hero{padding:2.5rem 1rem 2rem;}nav{padding:0 1rem;}}
+.cluster-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:.18s;cursor:pointer;}
+.cluster-card:hover{box-shadow:var(--sh-lg);transform:translateY(-3px);}
+.cluster-hdr{background:var(--orange);color:var(--white);padding:.95rem 1.25rem;font-weight:600;font-size:.95rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+.cl-badge{background:rgba(255,255,255,.22);border-radius:20px;padding:.15rem .65rem;font-size:.75rem;font-weight:500;white-space:nowrap;}
+.cluster-body{padding:1rem 1.25rem;}
+.sub-list{list-style:none;}
+.sub-list li{padding:.4rem 0;border-bottom:1px solid rgba(214,222,232,.5);display:flex;align-items:center;gap:.55rem;font-size:.88rem;cursor:pointer;transition:color .16s;}
+.sub-list li:last-child{border-bottom:none;}
+.sub-list li:hover{color:var(--orange);}
+.sub-list li::before{content:'';display:inline-block;width:6px;height:6px;background:var(--orange);border-radius:50%;flex-shrink:0;}
+
+/* DIRECTORY */
+.dir-hdr{background:var(--navy);color:var(--white);padding:2rem 2rem 1.5rem;}
+.dir-hdr h1{font-family:'DM Serif Display',serif;font-size:1.75rem;font-weight:400;margin-bottom:.25rem;}
+.dir-hdr p{color:rgba(255,255,255,.62);font-size:.875rem;}
+.dir-bar{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;position:sticky;top:64px;z-index:100;}
+.dir-bar input,.dir-bar select{padding:.55rem .9rem;border:1px solid var(--border);border-radius:var(--r-sm);font-family:inherit;font-size:.875rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .16s;}
+.dir-bar input{flex:1;min-width:180px;}
+.dir-bar input:focus,.dir-bar select:focus{border-color:var(--orange);}
+.res-meta{padding:.6rem 2rem;font-size:.8rem;color:var(--muted);}
+#chips{padding:0 2rem .5rem;display:flex;gap:.5rem;flex-wrap:wrap;}
+.chip{display:inline-flex;align-items:center;gap:.4rem;background:var(--orange);color:var(--white);border-radius:20px;padding:.25rem .75rem;font-size:.78rem;font-weight:500;}
+.chip button{background:none;border:none;cursor:pointer;color:var(--white);font-size:1.05rem;line-height:1;padding:0;}
+.dir-grid{padding:1.5rem 2rem 3rem;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.25rem;}
+@media(max-width:760px){.dir-grid{grid-template-columns:1fr;padding:1rem;}.dir-bar{padding:.75rem 1rem;}.dir-hdr{padding:1.5rem 1rem 1rem;}.res-meta,#chips{padding-left:1rem;padding-right:1rem;}}
+
+/* TOOL CARD */
+.tool-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:.18s;display:flex;flex-direction:column;box-shadow:var(--sh);}
+.tool-card:hover{box-shadow:var(--sh-lg);border-color:rgba(255,106,0,.4);transform:translateY(-2px);}
+.tool-card.selected{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,106,0,.18),var(--sh);}
+.tc-top{display:flex;align-items:center;gap:.9rem;padding:1.1rem 1.25rem .75rem;}
+.tc-logo{width:44px;height:44px;border-radius:8px;border:1px solid var(--border);object-fit:contain;background:var(--white);flex-shrink:0;padding:4px;}
+.tc-logo-fallback{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--orange) 0%,#ff9044 100%);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;flex-shrink:0;font-family:'DM Serif Display',serif;}
+.tc-name-wrap{flex:1;min-width:0;}
+.tc-name{font-weight:700;font-size:.96rem;color:var(--navy);line-height:1.25;margin-bottom:.3rem;}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem;}
+.tag{display:inline-flex;align-items:center;padding:.16rem .55rem;border-radius:20px;font-size:.7rem;font-weight:500;white-space:nowrap;}
+.tag-cl{background:#FFF0E6;color:#c24d00;border:1px solid #FFD4AD;}
+.tag-sub{background:var(--card);color:var(--muted);border:1px solid var(--border);}
+.tc-body{padding:0 1.25rem .9rem;display:flex;flex-direction:column;gap:.65rem;flex:1;}
+.tc-what{font-size:.85rem;color:var(--text);line-height:1.6;}
+.tc-what-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--orange);margin-bottom:.2rem;}
+.tc-why{background:var(--blue-bg);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;padding:.6rem .8rem;font-size:.82rem;color:#1e3a5f;line-height:1.55;}
+.tc-why-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--blue);margin-bottom:.2rem;}
+.tc-meta{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted);}
+.tc-footer{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;border-top:1px solid var(--border);gap:.5rem;margin-top:auto;background:var(--bg);}
+.btn-cmp{font-size:.78rem;padding:.35rem .8rem;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;font-family:inherit;transition:.16s;font-weight:500;}
+.btn-cmp:hover,.btn-cmp.in-cmp{border-color:var(--orange);color:var(--orange);background:#FFF5EE;}
+.tc-footer-right{display:flex;gap:.5rem;align-items:center;}
+.btn-view{font-size:.78rem;color:var(--orange);font-weight:600;background:none;border:none;cursor:pointer;font-family:inherit;text-decoration:underline;text-underline-offset:2px;}
+.btn-website-sm{font-size:.75rem;color:var(--white);background:var(--navy);border:none;border-radius:20px;padding:.3rem .75rem;cursor:pointer;font-family:inherit;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:background .16s;}
+.btn-website-sm:hover{background:#1a3a6b;}
+.no-results{text-align:center;padding:4rem 2rem;color:var(--muted);grid-column:1/-1;}
+.no-results h3{font-size:1.1rem;color:var(--navy);margin-bottom:.5rem;}
+
+/* ── DETAIL PAGE ── */
+.det-back{padding:1.25rem 2rem 0;max-width:960px;margin:0 auto;}
+.btn-back{background:none;border:none;cursor:pointer;color:var(--muted);font-family:inherit;font-size:.875rem;display:flex;align-items:center;gap:.4rem;padding:0;transition:color .16s;}
+.btn-back:hover{color:var(--orange);}
+.detail-wrap{max-width:960px;margin:0 auto;padding:1.5rem 2rem 4rem;}
+@media(max-width:640px){.detail-wrap{padding:1rem 1rem 3rem;}.det-back{padding:1rem 1rem 0;}}
+
+/* Hero */
+.det-hero{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:2rem;margin-bottom:1.25rem;box-shadow:var(--sh);}
+.det-hero-top{display:flex;align-items:flex-start;gap:1.25rem;margin-bottom:1.25rem;flex-wrap:wrap;}
+.det-logo-wrap{position:relative;flex-shrink:0;}
+.det-logo{width:72px;height:72px;border-radius:10px;border:1px solid var(--border);object-fit:contain;padding:6px;background:var(--white);display:block;}
+.det-logo-fb{width:72px;height:72px;border-radius:10px;background:linear-gradient(135deg,var(--orange) 0%,#ff9044 100%);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.8rem;font-family:'DM Serif Display',serif;}
+/* Upload logo overlay */
+.logo-upload-btn{position:absolute;bottom:-6px;right:-6px;background:var(--navy);color:var(--white);border:2px solid var(--white);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.7rem;transition:background .16s;z-index:2;}
+.logo-upload-btn:hover{background:var(--orange);}
+.logo-file-input{display:none;}
+.det-title-wrap{flex:1;min-width:200px;}
+.det-hero h1{font-family:'DM Serif Display',serif;font-size:1.75rem;font-weight:400;color:var(--navy);line-height:1.2;margin-bottom:.5rem;}
+.det-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.det-acts{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;}
+.btn-primary{background:var(--orange);color:var(--white);border:none;border-radius:7px;padding:.65rem 1.3rem;font-size:.875rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .16s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-primary:hover{background:var(--orange-d);}
+.btn-secondary{background:var(--bg);color:var(--navy);border:1px solid var(--border);border-radius:7px;padding:.65rem 1.3rem;font-size:.875rem;font-weight:500;cursor:pointer;font-family:inherit;transition:.16s;}
+.btn-secondary:hover,.btn-secondary.in-cmp{border-color:var(--orange);color:var(--orange);}
+.btn-nourl{background:#8a9aaa;color:var(--white);border:none;border-radius:7px;padding:.65rem 1.3rem;font-size:.875rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem;cursor:default;}
+
+/* Edit mode banner */
+.edit-banner{display:flex;align-items:center;justify-content:space-between;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:.6rem 1rem;margin-bottom:1rem;font-size:.82rem;color:#92400e;gap:.75rem;flex-wrap:wrap;}
+.edit-banner span{display:flex;align-items:center;gap:.4rem;}
+.edit-banner-btns{display:flex;gap:.5rem;}
+.btn-save{background:#16a34a;color:var(--white);border:none;border-radius:6px;padding:.4rem .9rem;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .16s;}
+.btn-save:hover{background:#15803d;}
+.btn-discard{background:none;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:.4rem .9rem;font-size:.8rem;cursor:pointer;font-family:inherit;transition:.16s;}
+.btn-discard:hover{color:#c00;border-color:#c00;}
+
+/* Field grid */
+.det-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:640px){.det-grid{grid-template-columns:1fr;}}
+.det-field{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.15rem 1.3rem;box-shadow:var(--sh);position:relative;}
+.det-field.full{grid-column:1/-1;}
+.det-field.highlight{border-color:var(--blue);border-left:4px solid var(--blue);}
+.det-field.modified{border-color:#16a34a;border-left:4px solid #16a34a;}
+.fld-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--orange);margin-bottom:.45rem;display:flex;align-items:center;justify-content:space-between;}
+.det-field.highlight .fld-lbl{color:var(--blue);}
+.det-field.modified .fld-lbl{color:#16a34a;}
+.fld-val{font-size:.88rem;color:var(--text);line-height:1.65;white-space:pre-wrap;word-break:break-word;min-height:1.4em;}
+.fld-val.empty{color:var(--muted);font-style:italic;}
+
+/* Edit pencil button */
+.btn-edit-field{background:none;border:1px solid var(--border);border-radius:5px;padding:.18rem .45rem;font-size:.72rem;color:var(--muted);cursor:pointer;font-family:inherit;transition:.16s;white-space:nowrap;}
+.btn-edit-field:hover{border-color:var(--orange);color:var(--orange);}
+
+/* Inline textarea */
+.field-textarea{width:100%;min-height:90px;font-family:inherit;font-size:.88rem;color:var(--text);line-height:1.65;border:1px solid var(--blue);border-radius:6px;padding:.5rem .65rem;resize:vertical;outline:none;background:var(--blue-bg);transition:border-color .16s;}
+.field-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12);}
+.field-edit-actions{display:flex;gap:.5rem;margin-top:.5rem;}
+.btn-field-save{background:var(--blue);color:var(--white);border:none;border-radius:5px;padding:.3rem .75rem;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-field-cancel{background:none;border:1px solid var(--border);border-radius:5px;padding:.3rem .75rem;font-size:.78rem;cursor:pointer;font-family:inherit;color:var(--muted);}
+.modified-badge{font-size:.65rem;font-weight:600;background:#dcfce7;color:#16a34a;border-radius:4px;padding:.1rem .4rem;margin-left:.4rem;}
+.btn-edit-url{background:none;border:1px solid var(--border);border-radius:6px;padding:.5rem .9rem;font-size:.82rem;color:var(--muted);cursor:pointer;font-family:inherit;transition:.16s;font-weight:500;}
+.btn-edit-url:hover{border-color:var(--orange);color:var(--orange);background:#FFF5EE;}
+.url-editor{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;background:var(--blue-bg);border:1px solid var(--blue);border-radius:8px;padding:.75rem 1rem;margin-top:.75rem;}
+.url-input{flex:1;min-width:240px;padding:.5rem .8rem;border:1px solid var(--blue);border-radius:5px;font-family:inherit;font-size:.9rem;outline:none;background:var(--white);color:var(--text);}
+.url-input:focus{box-shadow:0 0 0 3px rgba(59,130,246,.15);}
+
+/* COMPARE */
+.cmp-wrap{max-width:1220px;margin:0 auto;padding:2rem;}
+@media(max-width:600px){.cmp-wrap{padding:1rem;}}
+.cmp-hdr{margin-bottom:1.75rem;}
+.cmp-hdr h1{font-family:'DM Serif Display',serif;font-size:1.75rem;font-weight:400;color:var(--navy);margin-bottom:.25rem;}
+.cmp-hdr p{color:var(--muted);font-size:.875rem;}
+.cmp-empty{text-align:center;padding:4rem 2rem;color:var(--muted);}
+.cmp-empty h3{font-size:1.1rem;color:var(--navy);margin-bottom:.5rem;}
+.link{color:var(--orange);cursor:pointer;}
+.cmp-acts{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap;}
+.btn-remove{background:none;border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:.3rem .8rem;font-size:.78rem;cursor:pointer;font-family:inherit;transition:.16s;}
+.btn-remove:hover{border-color:#c00;color:#c00;}
+.tbl-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:var(--sh);}
+.cmp-tbl{width:100%;border-collapse:collapse;background:var(--white);font-size:.85rem;}
+.cmp-tbl th{background:var(--navy);color:var(--white);padding:1rem 1.25rem;text-align:left;font-weight:600;font-size:.875rem;vertical-align:top;}
+.cmp-tbl th:first-child{background:#0d2447;min-width:140px;}
+.th-logo-cell{display:flex;align-items:center;gap:.6rem;}
+.th-logo{width:32px;height:32px;border-radius:6px;border:1px solid rgba(255,255,255,.2);object-fit:contain;background:var(--white);padding:3px;flex-shrink:0;}
+.th-logo-fb{width:32px;height:32px;border-radius:6px;background:var(--orange);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0;}
+.cmp-tbl td{padding:.9rem 1.25rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55;white-space:pre-wrap;min-width:220px;word-break:break-word;}
+.cmp-tbl td:first-child{font-weight:600;font-size:.73rem;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);background:var(--bg);white-space:nowrap;min-width:150px;}
+.cmp-tbl tr:last-child td{border-bottom:none;}
+.cmp-tbl tr:hover td:not(:first-child){background:#FFFAF6;}
+footer{background:var(--navy);color:rgba(255,255,255,.38);text-align:center;padding:1.5rem;font-size:.78rem;}
+
+/* Toast */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:var(--white);padding:.65rem 1.4rem;border-radius:30px;font-size:.85rem;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:transform .3s ease,opacity .3s ease;opacity:0;z-index:999;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* ADD COMPANY PAGE */
+.add-hdr{background:var(--navy);color:var(--white);padding:2rem 2rem 1.5rem;}
+.add-hdr h1{font-family:'DM Serif Display',serif;font-size:1.75rem;font-weight:400;margin-bottom:.25rem;}
+.add-hdr p{color:rgba(255,255,255,.62);font-size:.875rem;max-width:600px;}
+.add-wrap{max-width:860px;margin:0 auto;padding:2rem 2rem 4rem;}
+@media(max-width:640px){.add-wrap{padding:1rem 1rem 3rem;}.add-hdr{padding:1.5rem 1rem 1rem;}}
+.add-form{display:flex;flex-direction:column;gap:1.25rem;}
+.form-section{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;box-shadow:var(--sh);}
+.form-section-title{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;color:var(--navy);margin-bottom:1.1rem;padding-bottom:.6rem;border-bottom:2px solid var(--orange);display:inline-block;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:580px){.form-grid{grid-template-columns:1fr;}}
+.form-field{display:flex;flex-direction:column;gap:.35rem;}
+.form-field.full{grid-column:1/-1;}
+.form-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--orange);}
+.form-label span{color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:.7rem;margin-left:.3rem;}
+.form-input,.form-select,.form-textarea{width:100%;padding:.6rem .85rem;border:1px solid var(--border);border-radius:var(--r-sm);font-family:inherit;font-size:.9rem;color:var(--text);background:var(--bg);outline:none;transition:border-color .16s,box-shadow .16s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1);background:var(--white);}
+.form-input.error,.form-select.error,.form-textarea.error{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.1);}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.form-actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;padding-top:.5rem;}
+.btn-submit{background:var(--orange);color:var(--white);border:none;border-radius:7px;padding:.7rem 1.75rem;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .16s;}
+.btn-submit:hover{background:var(--orange-d);}
+.btn-reset{background:none;border:1px solid var(--border);color:var(--muted);border-radius:7px;padding:.7rem 1.25rem;font-size:.875rem;cursor:pointer;font-family:inherit;transition:.16s;}
+.btn-reset:hover{border-color:#c00;color:#c00;}
+.form-error-msg{color:#ef4444;font-size:.8rem;margin-top:.2rem;}
+/* User company cards - highlighted differently */
+.tool-card.user-added{border-color:#7c3aed;border-left:4px solid #7c3aed;}
+.user-badge{font-size:.65rem;font-weight:600;background:#ede9fe;color:#7c3aed;border-radius:4px;padding:.1rem .4rem;margin-left:.4rem;display:inline-block;}
+/* Edit company button in detail */
+.btn-edit-company{background:none;border:1px solid var(--border);border-radius:7px;padding:.65rem 1.1rem;font-size:.875rem;font-weight:500;cursor:pointer;font-family:inherit;color:var(--muted);transition:.16s;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-edit-company:hover{border-color:#7c3aed;color:#7c3aed;}
+.btn-delete-company{background:none;border:1px solid #fecaca;border-radius:7px;padding:.65rem 1.1rem;font-size:.875rem;font-weight:500;cursor:pointer;font-family:inherit;color:#ef4444;transition:.16s;}
+.btn-delete-company:hover{background:#fef2f2;border-color:#ef4444;}
+/* Company list in add page */
+.user-companies-list{margin-top:2rem;}
+.user-companies-list h2{font-family:'DM Serif Display',serif;font-size:1.2rem;font-weight:400;color:var(--navy);margin-bottom:1rem;}
+.user-co-item{background:var(--white);border:1px solid #7c3aed;border-left:4px solid #7c3aed;border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;box-shadow:var(--sh);}
+.user-co-name{font-weight:600;color:var(--navy);font-size:.95rem;}
+.user-co-meta{font-size:.8rem;color:var(--muted);margin-top:.2rem;}
+.user-co-btns{display:flex;gap:.5rem;flex-shrink:0;}
+.btn-co-edit{background:none;border:1px solid var(--border);border-radius:6px;padding:.3rem .75rem;font-size:.78rem;cursor:pointer;font-family:inherit;color:var(--muted);transition:.16s;}
+.btn-co-edit:hover{border-color:#7c3aed;color:#7c3aed;}
+.btn-co-delete{background:none;border:1px solid #fecaca;border-radius:6px;padding:.3rem .75rem;font-size:.78rem;cursor:pointer;font-family:inherit;color:#ef4444;transition:.16s;}
+.btn-co-delete:hover{background:#fef2f2;}
+.empty-user-list{color:var(--muted);font-size:.88rem;font-style:italic;padding:.5rem 0;}
+
+
+/* HERO ENHANCEMENTS */
+.hero-pills{display:flex;justify-content:center;gap:.6rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.hero-pill{background:rgba(255,255,255,.12);color:var(--white);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:.3rem .85rem;font-size:.78rem;font-weight:500;letter-spacing:.02em;backdrop-filter:blur(4px);}
+.home-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.1rem);font-weight:400;margin-bottom:1rem;line-height:1.15;}
+.hero-accent{color:var(--orange);font-style:italic;}
+.home-hero p{color:rgba(255,255,255,.75);font-size:1rem;max-width:560px;margin:0 auto 1.75rem;line-height:1.7;}
+.home-hero p strong{color:var(--white);font-weight:600;}
+.hero-stats{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+.hero-stat{text-align:center;}
+.hero-stat-num{display:block;font-family:'DM Serif Display',serif;font-size:1.9rem;font-weight:400;color:var(--white);line-height:1;}
+.hero-stat-lbl{display:block;font-size:.72rem;font-weight:500;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem;}
+.hero-stat-div{width:1px;height:36px;background:rgba(255,255,255,.18);}
+@media(max-width:480px){.hero-stats{gap:1rem;}.hero-stat-div{display:none;}}
+
+
+/* EXPORT / IMPORT */
+.data-mgmt{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;box-shadow:var(--sh);margin-top:2rem;}
+.data-mgmt-title{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;color:var(--navy);margin-bottom:.5rem;}
+.data-mgmt-desc{font-size:.83rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.6;}
+.data-mgmt-desc strong{color:var(--text);}
+.data-mgmt-row{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;}
+.btn-export{background:var(--navy);color:var(--white);border:none;border-radius:7px;padding:.6rem 1.2rem;font-size:.875rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .16s;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-export:hover{background:#1a3a6b;}
+.btn-import{background:var(--bg);color:var(--navy);border:1px solid var(--border);border-radius:7px;padding:.6rem 1.2rem;font-size:.875rem;font-weight:500;cursor:pointer;font-family:inherit;transition:.16s;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-import:hover{border-color:var(--orange);color:var(--orange);}
+.btn-export-edits{background:var(--bg);color:var(--navy);border:1px solid var(--border);border-radius:7px;padding:.6rem 1.2rem;font-size:.875rem;font-weight:500;cursor:pointer;font-family:inherit;transition:.16s;display:inline-flex;align-items:center;gap:.4rem;}
+.btn-export-edits:hover{border-color:var(--blue);color:var(--blue);}
+.import-file-input{display:none;}
+.import-note{font-size:.75rem;color:var(--muted);margin-top:.6rem;font-style:italic;}
+.data-mgmt-divider{width:100%;height:1px;background:var(--border);margin:.75rem 0;}
+/* Floating export button in nav */
+.nav-data-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8)!important;border-radius:6px!important;padding:.35rem .7rem!important;font-size:.75rem!important;font-weight:500!important;transition:.16s!important;}
+.nav-data-btn:hover{background:rgba(255,255,255,.18)!important;color:var(--white)!important;}
+
+
+.live-toast{bottom:5rem;background:#16a34a;font-size:.82rem;}
+.live-toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+
+.sb-loading{text-align:center;padding:3rem 2rem;color:var(--muted);grid-column:1/-1;}
+.sb-loading-spinner{display:inline-block;width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:1rem;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sb-error-banner{background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:.75rem 1rem;font-size:.83rem;color:#991b1b;margin:1rem 2rem;display:flex;align-items:center;gap:.5rem;}
+
+
+/* MANDATORY FIELD STYLES */
+.req-star{color:var(--orange);font-size:.85rem;}
+.form-req-note{font-size:.78rem;color:var(--muted);margin-bottom:1rem;margin-top:-.25rem;}
+.form-label.req{font-weight:700;}
+.form-input.error,.form-select.error,.form-textarea.error{border-color:#ef4444!important;background:#fff5f5!important;box-shadow:0 0 0 3px rgba(239,68,68,.1)!important;}
+.form-section-title{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--orange);display:flex;align-items:center;gap:.5rem;}
+/* Required asterisk on mkField labels */
+.form-label .req-star{margin-left:.2rem;}
+
+
+.btn-edit-name{background:none;border:1px solid var(--border);border-radius:50%;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:.8rem;color:var(--muted);transition:.16s;flex-shrink:0;padding:0;}
+.btn-edit-name:hover{border-color:var(--orange);color:var(--orange);background:#FFF5EE;}
+.name-edit-wrap{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-top:.5rem;width:100%;background:var(--blue-bg);border:1px solid var(--blue);border-radius:8px;padding:.6rem .8rem;}
+.name-edit-inp{flex:1;min-width:200px;}
+
+</style>
+</head><body>
+<nav>
+  <span class="logo" onclick="go('#/')"><span class="dot"></span> E&amp;S AI Startups</span>
+  <div class="nav-links">
+    <a id="nav-home" onclick="go('#/')">Home</a>
+    <a id="nav-dir" onclick="go('#/companies')">Directory</a>
+    <a id="nav-add" onclick="go('#/add')">+ Add Company</a>
+    <a class="nav-data-btn" onclick="go('#/add')" title="Export / Import data">&#128190; Data</a>
+    <a class="cmp-nav-btn" onclick="go('#/compare')">Compare <span class="cmp-badge" id="cmp-badge">0</span></a>
+    <span id="sb-status" style="width:9px;height:9px;border-radius:50%;background:#f59e0b;display:inline-block;margin-left:.35rem;flex-shrink:0;" title="Connecting to database…"></span>
+  </div>
+</nav>
+<div class="toast" id="toast"></div>
+<div class="toast live-toast" id="live-toast"></div>
+<main>
+<div id="page-home" class="page"><div class="home-hero">
+  <div class="hero-pills">
+    <span class="hero-pill">&#129302; AI-Powered</span>
+    <span class="hero-pill">&#127807; Environmental</span>
+    <span class="hero-pill">&#129309; Social</span>
+  </div>
+  <h1>AI Startups &amp; Companies<br>in the <span class="hero-accent">E&amp;S</span> Space</h1>
+  <p>Discover AI-powered startups and companies operating in the <strong>Environmental &amp; Social (E&amp;S)</strong> field — mapped by topic cluster and evaluated for relevance to shipping &amp; supply chain operations.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">50</span><span class="hero-stat-lbl">Companies</span></div>
+    <div class="hero-stat-div"></div>
+    <div class="hero-stat"><span class="hero-stat-num">5</span><span class="hero-stat-lbl">E&amp;S Clusters</span></div>
+    <div class="hero-stat-div"></div>
+    <div class="hero-stat"><span class="hero-stat-num">AI</span><span class="hero-stat-lbl">Focus</span></div>
+  </div>
+  <div class="srch-wrap"><span class="srch-icon">&#128269;</span><input type="text" id="home-q" placeholder="Search startups, topics, locations…" onkeydown="if(event.key==='Enter'){var v=this.value.trim();if(v)go('#/companies?q='+encodeURIComponent(v));}" /></div>
+</div><div class="clusters-section"><h2>Browse by E&amp;S Topic Cluster</h2><div class="clusters-grid" id="clusters-grid"></div></div></div>
+<div id="page-companies" class="page"><div class="dir-hdr"><h1>E&amp;S AI Startups Directory</h1><p id="dir-label">All 50 tools and platforms</p></div><div class="dir-bar"><input type="text" id="dir-q" placeholder="Search all fields…" oninput="renderDir()" /><select id="dir-cluster" onchange="syncSubs()"><option value="">All Clusters</option></select><select id="dir-sub" onchange="renderDir()"><option value="">All Subtopics</option></select><select id="dir-sort" onchange="renderDir()"><option value="az">A – Z</option><option value="za">Z – A</option><option value="cluster">By Cluster</option></select></div><div id="chips"></div><div class="res-meta" id="res-count"></div><div class="dir-grid" id="dir-grid"></div></div>
+<div id="page-detail" class="page"><div class="det-back"><button class="btn-back" onclick="history.back()">&#8592; Back to Directory</button></div><div class="detail-wrap" id="detail-wrap"></div></div>
+<div id="page-compare" class="page"><div class="cmp-wrap"><div class="cmp-hdr"><h1>Compare Tools</h1><p>Side-by-side comparison of up to 3 selected ESG tools.</p></div><div id="cmp-content"></div></div></div>
+<div id="page-add" class="page">
+  <div class="add-hdr"><h1>Add New Company</h1><p>Fill in the details below. Your new company will appear in the directory immediately and is saved in your browser.</p></div>
+  <div class="add-wrap" id="add-wrap"></div>
+</div>
+</main>
+<footer>E&amp;S AI Startups Directory &nbsp;&middot;&nbsp; Data sourced from Excel &nbsp;&middot;&nbsp; Added companies &amp; edits saved in your browser &nbsp;&middot;&nbsp; <a onclick="go('#/add')" style="color:rgba(255,255,255,.6);cursor:pointer;text-decoration:underline;">Export / Import data</a></footer>
+<script>var DATA=[{"tool_platform": "Watershed, Footprint Intelligence", "what_it_does": "End-to-end carbon management platform that measures Scope 1, 2, and 3 emissions, automates CSRD/GRI reporting, supports SBTi target-setting, and tracks decarbonization progress across the value chain.", "why_useful": "Gives a single source of truth for all GHG emissions across fleet, offices, and supply chain. Automates mandatory EU climate disclosures (CSRD) and helps set and track science-based emissions targets.", "hq_location": "San Francisco, CA, USA\n(+ New York, London)", "company_size": "~400–590 employees\n(Series C, Founded 2019)\nValuation: $1.8B", "notable_clients": "• Walmart\n• Stripe\n• Spotify\n• Klarna\n• BlackRock\n• Airbnb\n• Block\n(Note: primarily tech & DTC; not shipping-native — used for Scope 1-3 carbon accounting & CSRD/GRI reporting)", "source_notes": "tracxn.com; watershed.com; LinkedIn", "key_competitor": "Persefoni", "competitor_does": "enterprise carbon accounting platform with CSRD, GRI, and SBTi reporting, audit-ready emissions data, and Scope 3 supply chain tracking.", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 1, "slug": "watershed-footprint-intelligence", "searchText": "watershed, footprint intelligence end-to-end carbon management platform that measures scope 1, 2, and 3 emissions, automates csrd/gri reporting, supports sbti target-setting, and tracks decarbonization progress across the value chain. gives a single source of truth for all ghg emissions across fleet, offices, and supply chain. automates mandatory eu climate disclosures (csrd) and helps set and track science-based emissions targets. san francisco, ca, usa\n(+ new york, london) ~400–590 employees\n(series c, founded 2019)\nvaluation: $1.8b • walmart\n• stripe\n• spotify\n• klarna\n• blackrock\n• airbnb\n• block\n(note: primarily tech & dtc; not shipping-native — used for scope 1-3 carbon accounting & csrd/gri reporting) persefoni climate change mitigation climate change", "website": "https://watershed.com", "logo_domain": "watershed.com"}, {"tool_platform": "Bardo", "what_it_does": "provides a carbon footprint inventory platform that reconstructs a company’s emissions from real financial and operational data (like invoices and documents). Instead of estimates, it builds a line-by-line, auditable record of emissions using AI and lifecycle analysis (LCA)", "why_useful": "", "hq_location": "Stockholm, Sweden", "company_size": "small team (~20–25 employees range)", "notable_clients": "", "source_notes": "", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 2, "slug": "bardo", "searchText": "bardo provides a carbon footprint inventory platform that reconstructs a company’s emissions from real financial and operational data (like invoices and documents). instead of estimates, it builds a line-by-line, auditable record of emissions using ai and lifecycle analysis (lca)  stockholm, sweden small team (~20–25 employees range)   climate change mitigation climate change", "website": "https://bardo.earth", "logo_domain": "bardo.earth"}, {"tool_platform": "Sweep", "what_it_does": "AI‑powered SaaS for enterprise sustainability data management, Scope 1–3 mapping, ESG reporting (CSRD), risk identification, and transition planning.", "why_useful": "Handles complex supply chains and financed emissions; provides granular data for IMO/EU ETS/CII compliance and fleet decarbonization strategies", "hq_location": "Paris, France (plus London, UK).", "company_size": "~230 employees, revenue ~$33.6M", "notable_clients": "None named (Fortune 500, listed firms, financials; strong in complex supply chains but no maritime specifics", "source_notes": "", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 3, "slug": "sweep", "searchText": "sweep ai‑powered saas for enterprise sustainability data management, scope 1–3 mapping, esg reporting (csrd), risk identification, and transition planning. handles complex supply chains and financed emissions; provides granular data for imo/eu ets/cii compliance and fleet decarbonization strategies paris, france (plus london, uk). ~230 employees, revenue ~$33.6m none named (fortune 500, listed firms, financials; strong in complex supply chains but no maritime specifics  climate change mitigation climate change", "website": "https://sweep.net", "logo_domain": "sweep.net"}, {"tool_platform": "Greenly", "what_it_does": "All‑in‑one carbon management and sustainability suite for carbon accounting, LCAs, ESG/CSRD reporting, backed by 300k+ emission factors aligned with GHG Protocol, ISO, SBTi", "why_useful": "Automates Scope 1–3 emissions for fleet, fuel, and supply chain; supports CSRD/CBAM compliance and Net Zero planning without manual data entry—ideal for Hapag‑Lloyd’s decarbonization reporting", "hq_location": "Paris, France (offices in New York, London).", "company_size": "51–200 employees, founded 2019, raised ~$24M Series", "notable_clients": "None publicly named (serves 3,500+ clients mainly retail, manufacturing, finance, agri‑food; no maritime focus disclosed).", "source_notes": "LinkedIn", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 4, "slug": "greenly", "searchText": "greenly all‑in‑one carbon management and sustainability suite for carbon accounting, lcas, esg/csrd reporting, backed by 300k+ emission factors aligned with ghg protocol, iso, sbti automates scope 1–3 emissions for fleet, fuel, and supply chain; supports csrd/cbam compliance and net zero planning without manual data entry—ideal for hapag‑lloyd’s decarbonization reporting paris, france (offices in new york, london). 51–200 employees, founded 2019, raised ~$24m series none publicly named (serves 3,500+ clients mainly retail, manufacturing, finance, agri‑food; no maritime focus disclosed).  climate change mitigation climate change", "website": "https://greenly.earth", "logo_domain": "greenly.earth"}, {"tool_platform": "ZeroNorth", "what_it_does": "Voyage planning and optimization platform that calculates fuel consumption, CII scores, and EU ETS exposure to reduce emissions.", "why_useful": "Helps vessels choose optimal routes and speeds, reducing fuel use, lowering CO₂ emissions, and ensuring compliance with maritime climate regulations.", "hq_location": "Copenhagen, Denmark\n(10 global offices: Asia, Europe, North America)", "company_size": "~600 employees\n(Founded 2020, Scale-up)\nRaised: ~$100M+", "notable_clients": "• Maersk Tankers (240-vessel fleet, 5-year deal)\n• Trafigura (350+ vessel fleet)\n• Cargill (investor & customer)\n• Vitol (bunker pilot, Port of Rotterdam)\n• Teekay (emissions reporting)\n• 230+ shipping & energy companies total", "source_notes": "pitchbook.com; tech.eu; zeronorth.com; smartmaritimenetwork.com (Jan 2026)", "key_competitor": "NAPA (Naval Arch. & Marine Eng.)", "competitor_does": "Offers voyage optimization and fleet performance analytics including CII and EEXI compliance tools for fuel-efficient routing.", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 5, "slug": "zeronorth", "searchText": "zeronorth voyage planning and optimization platform that calculates fuel consumption, cii scores, and eu ets exposure to reduce emissions. helps vessels choose optimal routes and speeds, reducing fuel use, lowering co₂ emissions, and ensuring compliance with maritime climate regulations. copenhagen, denmark\n(10 global offices: asia, europe, north america) ~600 employees\n(founded 2020, scale-up)\nraised: ~$100m+ • maersk tankers (240-vessel fleet, 5-year deal)\n• trafigura (350+ vessel fleet)\n• cargill (investor & customer)\n• vitol (bunker pilot, port of rotterdam)\n• teekay (emissions reporting)\n• 230+ shipping & energy companies total napa (naval arch. & marine eng.) climate change mitigation climate change", "website": "https://zeronorth.com", "logo_domain": "zeronorth.com"}, {"tool_platform": "SmartOps (MariApps)", "what_it_does": "Tracks vessel emissions, calculates CII scores, monitors fuel consumption, and supports voyage planning with emission analysis.", "why_useful": "Allows fleet managers to reduce GHG emissions and comply with IMO and EU climate regulations while improving fuel efficiency.", "hq_location": "Singapore (HQ)\n+ India (Kochi, Mumbai), Germany, Cyprus, Dubai, France, Japan, USA, Saudi Arabia", "company_size": "~1,000–1,300 employees\n(Founded 2014, Bootstrapped)\n9 global offices", "notable_clients": "• Maersk (330 container ships – PAL NG)\n• Bernhard Schulte Shipmanagement\n• Tomini Shipping\n• Polembros Shipping\n• Bourbon\n• Siam Lucky Marine", "source_notes": "tracxn.com; bs-shipmanagement.com; mariapps.com/clients", "key_competitor": "Wärtsilä Voyage (Fleet Operations)", "competitor_does": "Provides fleet performance management including emissions monitoring, CII scoring, and voyage optimization for decarbonization compliance.", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 6, "slug": "smartops-mariapps", "searchText": "smartops (mariapps) tracks vessel emissions, calculates cii scores, monitors fuel consumption, and supports voyage planning with emission analysis. allows fleet managers to reduce ghg emissions and comply with imo and eu climate regulations while improving fuel efficiency. singapore (hq)\n+ india (kochi, mumbai), germany, cyprus, dubai, france, japan, usa, saudi arabia ~1,000–1,300 employees\n(founded 2014, bootstrapped)\n9 global offices • maersk (330 container ships – pal ng)\n• bernhard schulte shipmanagement\n• tomini shipping\n• polembros shipping\n• bourbon\n• siam lucky marine wärtsilä voyage (fleet operations) climate change mitigation climate change", "website": "https://mariapps.com", "logo_domain": "mariapps.com"}, {"tool_platform": "Thetius (Maritime Innovation Intelligence)", "what_it_does": "Maritime technology research and data platform tracking ESG, decarbonisation, and digital innovation trends across the shipping sector.", "why_useful": "Provides intelligence on emerging ESG technologies and sustainability benchmarks relevant to shipping — supporting strategic innovation decisions and ESG supplier due diligence.", "hq_location": "London, UK (HQ)", "company_size": "~11–50 employees\n(Founded 2018, Research/Consulting startup)\nMaritime tech intelligence firm", "notable_clients": "• Shipping companies, port operators, maritime investors\n• Class societies and maritime financial institutions\n• Used for ESG technology benchmarking and strategy\n(Research consultancy — specific client names not publicly confirmed)", "source_notes": "thetius.com; LinkedIn", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 7, "slug": "thetius-maritime-innovation-intelligence", "searchText": "thetius (maritime innovation intelligence) maritime technology research and data platform tracking esg, decarbonisation, and digital innovation trends across the shipping sector. provides intelligence on emerging esg technologies and sustainability benchmarks relevant to shipping — supporting strategic innovation decisions and esg supplier due diligence. london, uk (hq) ~11–50 employees\n(founded 2018, research/consulting startup)\nmaritime tech intelligence firm • shipping companies, port operators, maritime investors\n• class societies and maritime financial institutions\n• used for esg technology benchmarking and strategy\n(research consultancy — specific client names not publicly confirmed)  climate change mitigation climate change", "website": "https://thetius.com", "logo_domain": "thetius.com"}, {"tool_platform": "NetCero", "what_it_does": "All-in-one ESG reporting and sustainability management SaaS platform covering GHG accounting (Scope 1–3, GHG Protocol), CSRD/ESRS double materiality assessment, EU Taxonomy, ISO/EMAS integration, KPI tracking, and AI-powered audit-ready reporting. Built on 25 years of Big Four consulting expertise.", "why_useful": "Provides shipping companies with a structured, audit-ready platform to manage all CSRD/ESRS sustainability disclosures — from Scope 1–3 GHG accounting and EU Taxonomy classification to double materiality assessment and cross-company ESG KPI consolidation.", "hq_location": "Vienna, Austria (HQ)", "company_size": "~11–50 employees\n(Founded ~2018, Self-financed/Bootstrapped)\nAustria's market-leading ESG software\n100+ enterprise customers", "notable_clients": "• 100+ organisations (SMEs to large international corporations)\n• Primarily Austrian and DACH region enterprises\n• Cross-industry: manufacturing, logistics, financial services\n(No major named shipping client — strong fit for CSRD-mandated Scope 1–3 reporting and EU Taxonomy classification for shipping groups)", "source_notes": "netcero.eu; capterra.com; sustainabilitysummit.eu (2026)", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 8, "slug": "netcero", "searchText": "netcero all-in-one esg reporting and sustainability management saas platform covering ghg accounting (scope 1–3, ghg protocol), csrd/esrs double materiality assessment, eu taxonomy, iso/emas integration, kpi tracking, and ai-powered audit-ready reporting. built on 25 years of big four consulting expertise. provides shipping companies with a structured, audit-ready platform to manage all csrd/esrs sustainability disclosures — from scope 1–3 ghg accounting and eu taxonomy classification to double materiality assessment and cross-company esg kpi consolidation. vienna, austria (hq) ~11–50 employees\n(founded ~2018, self-financed/bootstrapped)\naustria's market-leading esg software\n100+ enterprise customers • 100+ organisations (smes to large international corporations)\n• primarily austrian and dach region enterprises\n• cross-industry: manufacturing, logistics, financial services\n(no major named shipping client — strong fit for csrd-mandated scope 1–3 reporting and eu taxonomy classification for shipping groups)  climate change mitigation climate change", "website": "https://netcero.eu", "logo_domain": "netcero.eu"}, {"tool_platform": "Global Changer", "what_it_does": "AI-powered sustainability platform automating Scope 1–3 carbon accounting (including AI-matched Scope 3.1 purchased goods at 100k+ data points in 24hrs), Product Carbon Footprint (PCF) generation, CSRD/DMA double materiality, and SBTi-aligned reduction planning.", "why_useful": "Automates complex Scope 3 supply chain emissions for shipping companies — covering purchased goods/services, freight, and fuel — reducing manual effort while delivering CSRD-compliant GHG reports and SBTi decarbonisation pathways aligned with IMO and EU ETS obligations.", "hq_location": "Germany (HQ — remote-first)\n(Exact city not publicly disclosed)", "company_size": "~11–50 employees\n(Founded ~2019, Early-stage startup)\nSpecialises in 1,000–10,000 employee companies", "notable_clients": "• Tchibo (retail/logistics)\n• Haniel Group (industrial conglomerate)\n• Panasonic (electronics/supply chain)\n• Vivantes, Darbo\n(Logistics/supply chain clients confirmed; no dedicated shipping company named)", "source_notes": "globalchanger.com; dealroom.co; sustainabilitysummit.eu (2026)", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 9, "slug": "global-changer", "searchText": "global changer ai-powered sustainability platform automating scope 1–3 carbon accounting (including ai-matched scope 3.1 purchased goods at 100k+ data points in 24hrs), product carbon footprint (pcf) generation, csrd/dma double materiality, and sbti-aligned reduction planning. automates complex scope 3 supply chain emissions for shipping companies — covering purchased goods/services, freight, and fuel — reducing manual effort while delivering csrd-compliant ghg reports and sbti decarbonisation pathways aligned with imo and eu ets obligations. germany (hq — remote-first)\n(exact city not publicly disclosed) ~11–50 employees\n(founded ~2019, early-stage startup)\nspecialises in 1,000–10,000 employee companies • tchibo (retail/logistics)\n• haniel group (industrial conglomerate)\n• panasonic (electronics/supply chain)\n• vivantes, darbo\n(logistics/supply chain clients confirmed; no dedicated shipping company named)  climate change mitigation climate change", "website": "https://globalchanger.com", "logo_domain": "globalchanger.com"}, {"tool_platform": "DeepSea Technologies (Cassandra)", "what_it_does": "AI+ML vessel performance monitoring: high-frequency sensor data, hull & engine analytics, CII year-end prediction, fuel-switching scenario modelling; purpose-built for shipping emissions reduction", "why_useful": "", "hq_location": "Athens, Greece (HQ — original)\nLondon, UK (post-acquisition HQ)\n(Acquired by Nabtesco, Japan, July 2023)", "company_size": "~51–200 employees\n(Founded 2017, Acquired 2023)\nRaised: $9.15M pre-acquisition\nNow part of Nabtesco Group (Tokyo)", "notable_clients": "• Eastern Pacific Shipping (EPS) — 300+ vessel fleet (fuel forecast within 1% weekly accuracy)\n• MMSL / Marubeni Ship Management ($86K fuel saved per vessel per year)\n• Capital Ship Management\n• Costamare\n• Various bulk, container & tanker operators", "source_notes": "crunchbase.com; cbinsights.com; mdpi.com (2026); tracxn.com", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 10, "slug": "deepsea-technologies-cassandra", "searchText": "deepsea technologies (cassandra) ai+ml vessel performance monitoring: high-frequency sensor data, hull & engine analytics, cii year-end prediction, fuel-switching scenario modelling; purpose-built for shipping emissions reduction  athens, greece (hq — original)\nlondon, uk (post-acquisition hq)\n(acquired by nabtesco, japan, july 2023) ~51–200 employees\n(founded 2017, acquired 2023)\nraised: $9.15m pre-acquisition\nnow part of nabtesco group (tokyo) • eastern pacific shipping (eps) — 300+ vessel fleet (fuel forecast within 1% weekly accuracy)\n• mmsl / marubeni ship management ($86k fuel saved per vessel per year)\n• capital ship management\n• costamare\n• various bulk, container & tanker operators  climate change mitigation climate change", "website": "https://deepsea.ai", "logo_domain": "deepsea.ai"}, {"tool_platform": "Windward (Data for Decarbonisation)", "what_it_does": "Maritime AI fusing AIS data, satellite intelligence & behavioural analytics: CO₂ emissions monitoring, fleet carbon benchmarking, IMO DCS/EU MRV compliance, voyage optimisation, sanctions & ESG risk", "why_useful": "", "hq_location": "Tel Aviv, Israel (R&D HQ)\n+ London UK, New York, Singapore, Dubai, Houston\n5 global offices", "company_size": "~190 employees\n(Founded 2010, Public — AIM London)\nRevenue: $33.1M TTM (Dec 2024)\nMarket Cap: ~$231M", "notable_clients": "• 400+ clients across government, finance, energy & shipping\n• Commodity traders & energy majors (Shell, Vitol sector)\n• Banks & insurers for maritime risk\n• Decarbonisation programme clients: shipping operators, charterers, port authorities\n(Specific shipping clients not individually named publicly — broad industry adoption)", "source_notes": "pitchbook.com; cbinsights.com; windward.ai; ship-technology.com", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 11, "slug": "windward-data-for-decarbonisation", "searchText": "windward (data for decarbonisation) maritime ai fusing ais data, satellite intelligence & behavioural analytics: co₂ emissions monitoring, fleet carbon benchmarking, imo dcs/eu mrv compliance, voyage optimisation, sanctions & esg risk  tel aviv, israel (r&d hq)\n+ london uk, new york, singapore, dubai, houston\n5 global offices ~190 employees\n(founded 2010, public — aim london)\nrevenue: $33.1m ttm (dec 2024)\nmarket cap: ~$231m • 400+ clients across government, finance, energy & shipping\n• commodity traders & energy majors (shell, vitol sector)\n• banks & insurers for maritime risk\n• decarbonisation programme clients: shipping operators, charterers, port authorities\n(specific shipping clients not individually named publicly — broad industry adoption)  climate change mitigation climate change", "website": "https://windward.ai", "logo_domain": "windward.ai"}, {"tool_platform": "Everstream Analytics", "what_it_does": "Uses AI to monitor supply chain risks using weather data, news, logistics data, and geospatial information.", "why_useful": "Helps identify disruptions, climate risks, or supplier issues early, improving operational resilience and sustainable supply chains.", "hq_location": "Troisdorf, Germany (founded) / San Marcos, CA, USA (operational HQ)\n6 global offices", "company_size": "~226 employees\n(Founded 2012, Private)\nRaised: $107M", "notable_clients": "• Google\n• Schneider Electric\n• Bayer\n(Primarily serves automotive, chemicals, food & beverage, high-tech — used by logistics/supply chain teams including in shipping)", "source_notes": "pitchbook.com; cbinsights.com; everstream.ai", "key_competitor": "Resilinc", "competitor_does": "Supply chain risk monitoring platform using AI to detect disruptions, map supplier networks, and provide early warning alerts for operational resilience.", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 12, "slug": "everstream-analytics", "searchText": "everstream analytics uses ai to monitor supply chain risks using weather data, news, logistics data, and geospatial information. helps identify disruptions, climate risks, or supplier issues early, improving operational resilience and sustainable supply chains. troisdorf, germany (founded) / san marcos, ca, usa (operational hq)\n6 global offices ~226 employees\n(founded 2012, private)\nraised: $107m • google\n• schneider electric\n• bayer\n(primarily serves automotive, chemicals, food & beverage, high-tech — used by logistics/supply chain teams including in shipping) resilinc climate change mitigation climate change", "website": "https://everstream.ai", "logo_domain": "everstream.ai"}, {"tool_platform": "Energy Elephant", "what_it_does": "Cloud platform that tracks energy, water, waste, and carbon data across multiple facilities.", "why_useful": "Provides centralized energy and carbon monitoring across offices, depots, and terminals, supporting emissions reduction strategies and ESG reporting.", "hq_location": "Dublin, Ireland\n('Silicon Dock' area)", "company_size": "~11–50 employees\n(Founded ~2015, Early-stage startup)\nSmall Irish cleantech", "notable_clients": "• Dublin Port area clients (ports & logistics)\n• Primarily Irish & European energy managers, facilities\n(No major named shipping clients publicly disclosed)", "source_notes": "crunchbase.com; energyelephant.com; LinkedIn", "key_competitor": "Sustainability Cloud (Salesforce)", "competitor_does": "Cloud-based sustainability management platform tracking energy, water, waste, and Scope 1–3 emissions across facilities and supply chains.", "subtopic": "Climate Change Mitigation", "cluster": "Climate Change", "id": 13, "slug": "energy-elephant", "searchText": "energy elephant cloud platform that tracks energy, water, waste, and carbon data across multiple facilities. provides centralized energy and carbon monitoring across offices, depots, and terminals, supporting emissions reduction strategies and esg reporting. dublin, ireland\n('silicon dock' area) ~11–50 employees\n(founded ~2015, early-stage startup)\nsmall irish cleantech • dublin port area clients (ports & logistics)\n• primarily irish & european energy managers, facilities\n(no major named shipping clients publicly disclosed) sustainability cloud (salesforce) climate change mitigation climate change", "website": "https://energyelephant.com", "logo_domain": "energyelephant.com"}, {"tool_platform": "Jupiter Intelligence (ClimateScore Global + Jupiter AI)", "what_it_does": "GenAI physical climate risk platform (90m resolution): multi-hazard risk scoring (flood, storm surge, wind, heat, sea-level rise), TCFD/CSRD-aligned disclosures, adaptation ROI modelling, Jupiter AI GenAI agent for instant conversational scenario analysis", "why_useful": "", "hq_location": "San Mateo, California, USA (HQ)\n+ New York, London\n(Global enterprise clients)", "company_size": "~100–200 employees\n(Founded 2017, Series C)\nRaised: $84M total\n($54M Series C, 2021)", "notable_clients": "• PwC (global partnership — ClimateScore embedded in PwC advisory)\n• JLL (real estate climate risk)\n• Arcadis (infrastructure resilience planning)\n• Leading banks, insurers & asset managers for TCFD/CSRD stress testing\n• Applicable for port operators, coastal terminal owners & shipping companies' physical risk disclosures\n(No single named shipping company confirmed publicly)", "source_notes": "jupiterintel.com; cbinsights.com; facilitiesdive.com (GenAI launch Jun 2024); daimagister.com", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Adaptation", "cluster": "Climate Change", "id": 14, "slug": "jupiter-intelligence-climatescore-global-jupiter-ai", "searchText": "jupiter intelligence (climatescore global + jupiter ai) genai physical climate risk platform (90m resolution): multi-hazard risk scoring (flood, storm surge, wind, heat, sea-level rise), tcfd/csrd-aligned disclosures, adaptation roi modelling, jupiter ai genai agent for instant conversational scenario analysis  san mateo, california, usa (hq)\n+ new york, london\n(global enterprise clients) ~100–200 employees\n(founded 2017, series c)\nraised: $84m total\n($54m series c, 2021) • pwc (global partnership — climatescore embedded in pwc advisory)\n• jll (real estate climate risk)\n• arcadis (infrastructure resilience planning)\n• leading banks, insurers & asset managers for tcfd/csrd stress testing\n• applicable for port operators, coastal terminal owners & shipping companies' physical risk disclosures\n(no single named shipping company confirmed publicly)  climate change adaptation climate change", "website": "https://jupiterintel.com", "logo_domain": "jupiterintel.com"}, {"tool_platform": "Cervest (EarthScan AI)", "what_it_does": "AI deep learning on satellite imagery + climate models: 10m resolution asset-level climate risk scores across flood, drought, heat, wind, fire, sea-level rise; TCFD/CSRD physical risk; port & coastal terminal vulnerability assessment", "why_useful": "", "hq_location": "London, UK (HQ)\n+ New York, USA", "company_size": "~51–100 employees\n(Founded 2017, Series A)\nRaised: ~$35M", "notable_clients": "• Unilever (supply chain climate risk)\n• BNEF / BloombergNEF (data partnership)\n• Insurance, infrastructure & logistics sectors\n• Port operators assessing coastal infrastructure climate vulnerability\n(Applicable for shipping companies' TCFD/CSRD physical risk disclosures on port & terminal assets)", "source_notes": "cervest.earth; crunchbase.com; tracxn.com", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Adaptation", "cluster": "Climate Change", "id": 15, "slug": "cervest-earthscan-ai", "searchText": "cervest (earthscan ai) ai deep learning on satellite imagery + climate models: 10m resolution asset-level climate risk scores across flood, drought, heat, wind, fire, sea-level rise; tcfd/csrd physical risk; port & coastal terminal vulnerability assessment  london, uk (hq)\n+ new york, usa ~51–100 employees\n(founded 2017, series a)\nraised: ~$35m • unilever (supply chain climate risk)\n• bnef / bloombergnef (data partnership)\n• insurance, infrastructure & logistics sectors\n• port operators assessing coastal infrastructure climate vulnerability\n(applicable for shipping companies' tcfd/csrd physical risk disclosures on port & terminal assets)  climate change adaptation climate change", "website": "https://cervest.earth", "logo_domain": "cervest.earth"}, {"tool_platform": "Sust Global", "what_it_does": "API-first AI climate risk intelligence: instant asset-level physical risk scores (flood, cyclone, heat, sea-level rise, wildfire, water stress) for any global location; integrates into ESG dashboards; TCFD/CSRD physical risk screening of hundreds of port/terminal assets at once", "why_useful": "", "hq_location": "San Francisco, California, USA (HQ)", "company_size": "~11–50 employees\n(Founded 2020, Seed/Early-stage)\nAPI-first platform for enterprise ESG teams", "notable_clients": "• Financial institutions & asset managers (API clients)\n• Logistics & infrastructure sector clients\n• ESG platform integrations (via API)\n(API-first: used by ESG data teams at shipping, logistics, port operators — no major client names publicly confirmed)", "source_notes": "sustglobal.io; cbinsights.com; LinkedIn", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Adaptation", "cluster": "Climate Change", "id": 16, "slug": "sust-global", "searchText": "sust global api-first ai climate risk intelligence: instant asset-level physical risk scores (flood, cyclone, heat, sea-level rise, wildfire, water stress) for any global location; integrates into esg dashboards; tcfd/csrd physical risk screening of hundreds of port/terminal assets at once  san francisco, california, usa (hq) ~11–50 employees\n(founded 2020, seed/early-stage)\napi-first platform for enterprise esg teams • financial institutions & asset managers (api clients)\n• logistics & infrastructure sector clients\n• esg platform integrations (via api)\n(api-first: used by esg data teams at shipping, logistics, port operators — no major client names publicly confirmed)  climate change adaptation climate change", "website": "https://sustglobal.io", "logo_domain": "sustglobal.io"}, {"tool_platform": "Esgaia (Climate Engagement & Adaptation Analytics)", "what_it_does": "AI ESG engagement platform integrating TCFD-aligned physical climate risk with portfolio ESG scoring; tracks companies' climate change adaptation progress & engagement outcomes; combines transition risk + physical risk in single dashboard; supports CSRD double materiality reporting", "why_useful": "", "hq_location": "Stockholm, Sweden (HQ)\n+ Oslo, London", "company_size": "~11–50 employees\n(Founded 2019, Growth-stage)\nNordic ESG fintech focused on institutional investors", "notable_clients": "• Institutional investors & asset managers (Nordic, European)\n• Used for portfolio ESG engagement tracking including climate change adaptation\n• Shipping sector applicable via investor engagement workflows\n(No specific named shipping client publicly confirmed)", "source_notes": "esgaia.com; LinkedIn; tracxn.com", "key_competitor": "", "competitor_does": "", "subtopic": "Climate Change Adaptation", "cluster": "Climate Change", "id": 17, "slug": "esgaia-climate-engagement-adaptation-analytics", "searchText": "esgaia (climate engagement & adaptation analytics) ai esg engagement platform integrating tcfd-aligned physical climate risk with portfolio esg scoring; tracks companies' climate change adaptation progress & engagement outcomes; combines transition risk + physical risk in single dashboard; supports csrd double materiality reporting  stockholm, sweden (hq)\n+ oslo, london ~11–50 employees\n(founded 2019, growth-stage)\nnordic esg fintech focused on institutional investors • institutional investors & asset managers (nordic, european)\n• used for portfolio esg engagement tracking including climate change adaptation\n• shipping sector applicable via investor engagement workflows\n(no specific named shipping client publicly confirmed)  climate change adaptation climate change", "website": "https://esgaia.com", "logo_domain": "esgaia.com"}, {"tool_platform": "Opsis (OceanScore)", "what_it_does": "Maritime ESG risk intelligence platform combining vessel-level emissions data, ESG scoring, and climate risk analytics for charterers, financiers, and ship operators.", "why_useful": "Provides vessel-level ESG scores fusing CII, EEXI, emissions intensity, and climate risk — directly supporting ESG due diligence for ship finance, chartering decisions, and Poseidon Principles compliance.", "hq_location": "Hamburg, Germany (HQ)\n(+ London, Oslo)", "company_size": "~11–50 employees\n(Founded 2020, Growth-stage)\nMaritime ESG fintech", "notable_clients": "• Major European banks (Poseidon Principles signatories)\n• Charterers and commodity traders for vessel ESG due diligence\n• Classification societies and P&I clubs\n(Specific client names not publicly disclosed)", "source_notes": "oceanscore.io; opsis.ai; LinkedIn", "key_competitor": "RightShip", "competitor_does": "Maritime risk and ESG platform providing vessel safety ratings, GHG efficiency ratings, and inspection data for chartering due diligence and Poseidon Principles compliance.", "subtopic": "Climate Change Adaptation", "cluster": "Climate Change", "id": 18, "slug": "opsis-oceanscore", "searchText": "opsis (oceanscore) maritime esg risk intelligence platform combining vessel-level emissions data, esg scoring, and climate risk analytics for charterers, financiers, and ship operators. provides vessel-level esg scores fusing cii, eexi, emissions intensity, and climate risk — directly supporting esg due diligence for ship finance, chartering decisions, and poseidon principles compliance. hamburg, germany (hq)\n(+ london, oslo) ~11–50 employees\n(founded 2020, growth-stage)\nmaritime esg fintech • major european banks (poseidon principles signatories)\n• charterers and commodity traders for vessel esg due diligence\n• classification societies and p&i clubs\n(specific client names not publicly disclosed) rightship climate change adaptation climate change", "website": "https://oceanscore.io", "logo_domain": "oceanscore.io"}, {"tool_platform": "Hawa Dawa", "what_it_does": "AI-driven air quality monitoring platform that tracks pollutants such as PM2.5, NO₂, and ozone using sensors and predictive models.", "why_useful": "Helps ports and logistics hubs monitor pollution from operations and traffic, reduce emissions, and meet environmental regulations.", "hq_location": "Munich, Germany (original HQ)\n(Acquired by BERNARD Gruppe)", "company_size": "~11–50 employees pre-acquisition\n(Founded 2016; acquired by BERNARD Gruppe)", "notable_clients": "• Ports & container shipping operators (via HERE Marketplace API integration)\n• Smart city / logistics clients\n(No major named shipping client publicly disclosed)", "source_notes": "crunchbase.com; here.com partnership; LinkedIn", "key_competitor": "BreezoMeter", "competitor_does": "Provides real-time air quality data, pollutant mapping, and health risk alerts using IoT sensors and satellite data for environmental compliance.", "subtopic": "Pollution", "cluster": "Environment & Ecosystems", "id": 19, "slug": "hawa-dawa", "searchText": "hawa dawa ai-driven air quality monitoring platform that tracks pollutants such as pm2.5, no₂, and ozone using sensors and predictive models. helps ports and logistics hubs monitor pollution from operations and traffic, reduce emissions, and meet environmental regulations. munich, germany (original hq)\n(acquired by bernard gruppe) ~11–50 employees pre-acquisition\n(founded 2016; acquired by bernard gruppe) • ports & container shipping operators (via here marketplace api integration)\n• smart city / logistics clients\n(no major named shipping client publicly disclosed) breezometer pollution environment & ecosystems", "website": "https://hawadawa.com", "logo_domain": "hawadawa.com"}, {"tool_platform": "IQAir", "what_it_does": "Air quality technology for monitoring (AirVisual platform) and cleaning; sensors, real‑time data APIs, pollutant tracking", "why_useful": "Monitors port/ship emissions (PM2.5/NOx); supports compliance around terminals and urban logistics hubs.", "hq_location": "Goldach, Switzerland (St. Gallen area)", "company_size": "~500–800 employees, revenue ~$38M", "notable_clients": "None named (focus Asia/North America; used in cities/industry but no maritime specifics)", "source_notes": "", "key_competitor": "", "competitor_does": "", "subtopic": "Pollution", "cluster": "Environment & Ecosystems", "id": 20, "slug": "iqair", "searchText": "iqair air quality technology for monitoring (airvisual platform) and cleaning; sensors, real‑time data apis, pollutant tracking monitors port/ship emissions (pm2.5/nox); supports compliance around terminals and urban logistics hubs. goldach, switzerland (st. gallen area) ~500–800 employees, revenue ~$38m none named (focus asia/north america; used in cities/industry but no maritime specifics)  pollution environment & ecosystems", "website": "https://iqair.com", "logo_domain": "iqair.com"}, {"tool_platform": "everwave", "what_it_does": "AI-powered river and waterway cleanup startup using waste collection boats, barriers, and mobile sorting systems to remove plastic from rivers before it reaches the ocean; issues certified Plastic Credits (1 credit = 1 kg waste removed) for corporate ESG reporting.", "why_useful": "Allows shipping companies to directly fund measurable plastic pollution reduction in high-impact river systems — generating certified Plastic Credits for ESG/CSRD reporting and supporting corporate commitments on marine pollution, biodiversity, and circular economy KPIs.", "hq_location": "Aachen, Germany (HQ)\n(Operations: Cambodia, Thailand, Albania)", "company_size": "~40–50 employees\n(Founded 2018, Growth-stage)\nRaised: undisclosed (Viessmann, KSK, NRW.BANK)\nOcean Bound Plastic Standard certified", "notable_clients": "• Mastercard (strategic partner)\n• Grohe (long-term partner)\n• Audi Environmental Foundation\n• Viessmann Generations Group (investor & partner)\n• 2M+ kg waste collected from rivers in Thailand, Cambodia, Albania\n(No named maritime shipping company — strong ESG fit for marine pollution & Scope 3 biodiversity disclosures)", "source_notes": "everwave.de; eu-startups.com (Aug 2025); tech.eu (Aug 2025)", "key_competitor": "The Ocean Cleanup", "competitor_does": "Large-scale ocean and river plastic extraction organisation developing advanced technologies including Interceptor river barriers and ocean-going systems to remove and recycle plastic pollution.", "subtopic": "Pollution", "cluster": "Environment & Ecosystems", "id": 21, "slug": "everwave", "searchText": "everwave ai-powered river and waterway cleanup startup using waste collection boats, barriers, and mobile sorting systems to remove plastic from rivers before it reaches the ocean; issues certified plastic credits (1 credit = 1 kg waste removed) for corporate esg reporting. allows shipping companies to directly fund measurable plastic pollution reduction in high-impact river systems — generating certified plastic credits for esg/csrd reporting and supporting corporate commitments on marine pollution, biodiversity, and circular economy kpis. aachen, germany (hq)\n(operations: cambodia, thailand, albania) ~40–50 employees\n(founded 2018, growth-stage)\nraised: undisclosed (viessmann, ksk, nrw.bank)\nocean bound plastic standard certified • mastercard (strategic partner)\n• grohe (long-term partner)\n• audi environmental foundation\n• viessmann generations group (investor & partner)\n• 2m+ kg waste collected from rivers in thailand, cambodia, albania\n(no named maritime shipping company — strong esg fit for marine pollution & scope 3 biodiversity disclosures) the ocean cleanup pollution environment & ecosystems", "website": "https://everwave.de", "logo_domain": "everwave.de"}, {"tool_platform": "SOFAR Ocean", "what_it_does": "Collects real-time ocean data (currents, waves, temperature, salinity) and detects marine mammals using Sound sensors.", "why_useful": "Helps ships plan safer routes, predict pollution spread after spills, and protect marine ecosystems.", "hq_location": "San Francisco, CA, USA\n(Pier 50, San Francisco Bay)", "company_size": "~68–116 employees\n(Founded 2016, Series B)\nRaised: ~$73–79M", "notable_clients": "• Eagle Bulk\n• Star Bulk\n• MOL (Mitsui OSK Lines) – 6% fuel reduction\n• Berge Bulk\n• US Navy (Fleet Weather Centers – routing pilot)\n• My Digital Fleet™ (ocean safety platform)", "source_notes": "sofarocean.com; tracxn.com; cbinsights.com; zoominfo.com", "key_competitor": "Spire Maritime", "competitor_does": "Offers real-time ocean analytics, weather routing, and AIS vessel tracking to optimize navigation and reduce environmental risk at sea.", "subtopic": "Pollution", "cluster": "Environment & Ecosystems", "id": 22, "slug": "sofar-ocean", "searchText": "sofar ocean collects real-time ocean data (currents, waves, temperature, salinity) and detects marine mammals using sound sensors. helps ships plan safer routes, predict pollution spread after spills, and protect marine ecosystems. san francisco, ca, usa\n(pier 50, san francisco bay) ~68–116 employees\n(founded 2016, series b)\nraised: ~$73–79m • eagle bulk\n• star bulk\n• mol (mitsui osk lines) – 6% fuel reduction\n• berge bulk\n• us navy (fleet weather centers – routing pilot)\n• my digital fleet™ (ocean safety platform) spire maritime pollution environment & ecosystems", "website": "https://sofarocean.com", "logo_domain": "sofarocean.com"}, {"tool_platform": "NatureMetrics", "what_it_does": "Uses environmental DNA (eDNA) from water samples to identify species living in marine environments.", "why_useful": "Helps monitor biodiversity impacts around ports and shipping routes and supports environmental compliance and ESG reporting.", "hq_location": "Guildford, Surrey, UK\n(Surrey Research Park)\n+ North America (Ontario, Canada), Indonesia (West Java)", "company_size": "~200 employees\n(Founded 2014, Series B)\nRaised: ~$52–73M", "notable_clients": "• 500+ clients in 100+ countries (mining, consumer goods, renewables, oil & gas, infrastructure)\n• Cruise & shipping account team active (Head of Cruise & Shipping Accounts role exists)\n• Works with ports & shipping routes on biodiversity compliance\n(No single dominant shipping name publicly confirmed)", "source_notes": "naturemetrics.com; tracxn.com; pitchbook.com; LinkedIn (shipping accounts)", "key_competitor": "Ecometrica", "competitor_does": "Biodiversity and ecosystem monitoring platform providing spatial data, habitat impact assessments, and nature risk reporting for ESG compliance.", "subtopic": "Biodiversity & Ecosystems", "cluster": "Environment & Ecosystems", "id": 23, "slug": "naturemetrics", "searchText": "naturemetrics uses environmental dna (edna) from water samples to identify species living in marine environments. helps monitor biodiversity impacts around ports and shipping routes and supports environmental compliance and esg reporting. guildford, surrey, uk\n(surrey research park)\n+ north america (ontario, canada), indonesia (west java) ~200 employees\n(founded 2014, series b)\nraised: ~$52–73m • 500+ clients in 100+ countries (mining, consumer goods, renewables, oil & gas, infrastructure)\n• cruise & shipping account team active (head of cruise & shipping accounts role exists)\n• works with ports & shipping routes on biodiversity compliance\n(no single dominant shipping name publicly confirmed) ecometrica biodiversity & ecosystems environment & ecosystems", "website": "https://naturemetrics.com", "logo_domain": "naturemetrics.com"}, {"tool_platform": "Terrascope", "what_it_does": "AI-powered nature and biodiversity risk assessment platform mapping ecosystem dependencies and impact footprints for TNFD/CSRD biodiversity disclosures.", "why_useful": "Helps shipping companies identify nature dependencies and biodiversity impacts across operational routes and port locations — supporting TNFD and CSRD double materiality biodiversity reporting.", "hq_location": "Singapore (HQ)\n(+ London)", "company_size": "~51–100 employees\n(Founded 2021, Growth-stage)\nDBC & Temasek-backed sustainability platform", "notable_clients": "• Financial institutions and large corporates (TNFD/CSRD biodiversity reporting)\n• Port operators and infrastructure companies\n(No major named shipping client publicly confirmed)", "source_notes": "terrascope.io; LinkedIn", "key_competitor": "S&P Trucost (S&P Global Sustainable1)", "competitor_does": "Environmental data and analytics platform quantifying biodiversity impact, ecosystem services value, and natural capital risk for TNFD and CSRD disclosures.", "subtopic": "Biodiversity & Ecosystems", "cluster": "Environment & Ecosystems", "id": 24, "slug": "terrascope", "searchText": "terrascope ai-powered nature and biodiversity risk assessment platform mapping ecosystem dependencies and impact footprints for tnfd/csrd biodiversity disclosures. helps shipping companies identify nature dependencies and biodiversity impacts across operational routes and port locations — supporting tnfd and csrd double materiality biodiversity reporting. singapore (hq)\n(+ london) ~51–100 employees\n(founded 2021, growth-stage)\ndbc & temasek-backed sustainability platform • financial institutions and large corporates (tnfd/csrd biodiversity reporting)\n• port operators and infrastructure companies\n(no major named shipping client publicly confirmed) s&p trucost (s&p global sustainable1) biodiversity & ecosystems environment & ecosystems", "website": "https://terrascope.io", "logo_domain": "terrascope.io"}, {"tool_platform": "Vizzuality (Global Forest Watch)", "what_it_does": "Data visualisation and satellite-based ecosystem monitoring platform tracking deforestation, marine habitat health, and biodiversity indicators at global scale.", "why_useful": "Enables shipping companies to monitor and disclose biodiversity impacts of cargo supply chains and port-adjacent ecosystems — supporting TNFD nature risk disclosures and sustainable procurement.", "hq_location": "Madrid, Spain (HQ)\n(+ Washington DC, Cambridge UK)", "company_size": "~50–100 employees\n(Founded 2010, B-Corp)\nNon-profit tech & data visualisation firm", "notable_clients": "• World Resources Institute (Global Forest Watch)\n• UN Environment Programme\n• Port and logistics environmental impact monitoring\n(NGO/public data platform)", "source_notes": "vizzuality.com; globalforestwatch.org", "key_competitor": "Planet Labs", "competitor_does": "Commercial satellite imagery provider offering daily Earth observation data for ecosystem monitoring, deforestation tracking, and environmental compliance reporting.", "subtopic": "Biodiversity & Ecosystems", "cluster": "Environment & Ecosystems", "id": 25, "slug": "vizzuality-global-forest-watch", "searchText": "vizzuality (global forest watch) data visualisation and satellite-based ecosystem monitoring platform tracking deforestation, marine habitat health, and biodiversity indicators at global scale. enables shipping companies to monitor and disclose biodiversity impacts of cargo supply chains and port-adjacent ecosystems — supporting tnfd nature risk disclosures and sustainable procurement. madrid, spain (hq)\n(+ washington dc, cambridge uk) ~50–100 employees\n(founded 2010, b-corp)\nnon-profit tech & data visualisation firm • world resources institute (global forest watch)\n• un environment programme\n• port and logistics environmental impact monitoring\n(ngo/public data platform) planet labs biodiversity & ecosystems environment & ecosystems", "website": "https://vizzuality.com", "logo_domain": "vizzuality.com"}, {"tool_platform": "dots.eco", "what_it_does": "Environmental impact-as-a-service (EIaaS) SaaS platform that converts digital and business actions into verified, measurable real-world environmental outcomes (tree planting, ocean plastic removal, habitat protection) linked to 170+ certified global impact projects.", "why_useful": "Enables shipping companies to embed verified environmental impact into ESG strategies, crew engagement programmes, and CSRD ESRS disclosures — converting routine business actions (bookings, milestones, events) into traceable biodiversity and conservation credits.", "hq_location": "Wilmington, DE, USA (HQ)\n(+ international — Israel R&D)", "company_size": "~11–50 employees\n(Founded ~2020, Early-stage)\nB-Corp certified; B Impact Score: 105.8", "notable_clients": "• Tripadvisor (tree planting per user review)\n• Kaltura (event impact credits)\n• SciPlay (game milestone impact)\n• Mastercard, Viessmann (ESG partner)\n(No named maritime shipping client — applicable for shipping ESG stakeholder engagement & CSRD nature disclosures)", "source_notes": "dots.eco; bcorporation.net; crunchbase.com", "key_competitor": "Pachama", "competitor_does": "Nature-based carbon credit platform using satellite and AI verification to connect companies with certified forest conservation and restoration projects for ESG and CSRD nature disclosures.", "subtopic": "Biodiversity & Ecosystems", "cluster": "Environment & Ecosystems", "id": 26, "slug": "dots-eco", "searchText": "dots.eco environmental impact-as-a-service (eiaas) saas platform that converts digital and business actions into verified, measurable real-world environmental outcomes (tree planting, ocean plastic removal, habitat protection) linked to 170+ certified global impact projects. enables shipping companies to embed verified environmental impact into esg strategies, crew engagement programmes, and csrd esrs disclosures — converting routine business actions (bookings, milestones, events) into traceable biodiversity and conservation credits. wilmington, de, usa (hq)\n(+ international — israel r&d) ~11–50 employees\n(founded ~2020, early-stage)\nb-corp certified; b impact score: 105.8 • tripadvisor (tree planting per user review)\n• kaltura (event impact credits)\n• sciplay (game milestone impact)\n• mastercard, viessmann (esg partner)\n(no named maritime shipping client — applicable for shipping esg stakeholder engagement & csrd nature disclosures) pachama biodiversity & ecosystems environment & ecosystems", "website": null, "logo_domain": null}, {"tool_platform": "WildSense AI", "what_it_does": "Uses satellite images and sound sensors to monitor biodiversity and habitat health around operational sites.", "why_useful": "Provides measurable biodiversity indicators and risk scores to track environmental impact around terminals and logistics areas.", "hq_location": "Valparaíso, Chile", "company_size": "~11–50 employees\n(Founded ~2018, Early-stage startup)", "notable_clients": "• Primarily aquaculture, mining & infrastructure clients\n• Terminals and logistics areas (general positioning)\n(No major named shipping clients publicly disclosed)", "source_notes": "zoominfo.com; wildsense.cl", "key_competitor": "Satelligence", "competitor_does": "Uses satellite imagery and AI to monitor ecosystem health, deforestation risk, and biodiversity indicators for corporate nature disclosures.", "subtopic": "Biodiversity & Ecosystems", "cluster": "Environment & Ecosystems", "id": 27, "slug": "wildsense-ai", "searchText": "wildsense ai uses satellite images and sound sensors to monitor biodiversity and habitat health around operational sites. provides measurable biodiversity indicators and risk scores to track environmental impact around terminals and logistics areas. valparaíso, chile ~11–50 employees\n(founded ~2018, early-stage startup) • primarily aquaculture, mining & infrastructure clients\n• terminals and logistics areas (general positioning)\n(no major named shipping clients publicly disclosed) satelligence biodiversity & ecosystems environment & ecosystems", "website": "https://wildsense.ai", "logo_domain": "wildsense.ai"}, {"tool_platform": "Cority", "what_it_does": "Environmental management platform that tracks waste generation including food, paper, and operational waste.", "why_useful": "Automates environmental reporting and helps reduce waste across offices, ships, and logistics facilities.", "hq_location": "Toronto, Ontario, Canada\n(+ offices globally)", "company_size": "~500–1,000 employees\n(Founded 1985, PE-backed by Thoma Bravo)\nRevenue: ~$100–500M", "notable_clients": "• 2,000+ organisations worldwide\n• Aerospace, defence, automotive, manufacturing, retail sectors\n• Used for waste tracking in shipping offices, ships, logistics facilities\n(No major named shipping company publicly confirmed)", "source_notes": "zoominfo.com; rocketreach.co; cority.com", "key_competitor": "Intelex (Ideagen)", "competitor_does": "EHS and environmental management platform that tracks waste streams, audits, incidents, and compliance obligations across global operations.", "subtopic": "Resource Use (Waste, Water, Circularity)", "cluster": "Environment & Ecosystems", "id": 28, "slug": "cority", "searchText": "cority environmental management platform that tracks waste generation including food, paper, and operational waste. automates environmental reporting and helps reduce waste across offices, ships, and logistics facilities. toronto, ontario, canada\n(+ offices globally) ~500–1,000 employees\n(founded 1985, pe-backed by thoma bravo)\nrevenue: ~$100–500m • 2,000+ organisations worldwide\n• aerospace, defence, automotive, manufacturing, retail sectors\n• used for waste tracking in shipping offices, ships, logistics facilities\n(no major named shipping company publicly confirmed) intelex (ideagen) resource use (waste, water, circularity) environment & ecosystems", "website": "https://cority.com", "logo_domain": "cority.com"}, {"tool_platform": "AI Waste Monitoring", "what_it_does": "Uses AI to track waste generation and disposal in real time and automate sustainability reporting.", "why_useful": "Reduces manual reporting work and improves accuracy of waste and recycling data for ESG reporting.", "hq_location": "Varies by vendor\n(Greyparrot AI: London, UK)", "company_size": "Small startup range\n(~11–50 employees typical)", "notable_clients": "• Port & terminal facilities (general use case)\n(No major named shipping clients publicly confirmed)", "source_notes": "General category / multiple vendors", "key_competitor": "Greyparrot AI", "competitor_does": "AI-powered waste analytics platform using computer vision to classify and measure waste streams in real time at facilities and sorting centres.", "subtopic": "Resource Use (Waste, Water, Circularity)", "cluster": "Environment & Ecosystems", "id": 29, "slug": "ai-waste-monitoring", "searchText": "ai waste monitoring uses ai to track waste generation and disposal in real time and automate sustainability reporting. reduces manual reporting work and improves accuracy of waste and recycling data for esg reporting. varies by vendor\n(greyparrot ai: london, uk) small startup range\n(~11–50 employees typical) • port & terminal facilities (general use case)\n(no major named shipping clients publicly confirmed) greyparrot ai resource use (waste, water, circularity) environment & ecosystems", "website": null, "logo_domain": null}, {"tool_platform": "SmartEnds", "what_it_does": "Smart recycling containers with cameras and sensors that monitor fill levels and waste contamination.", "why_useful": "Improves recycling efficiency, reduces unnecessary waste collection trips, and provides measurable waste KPIs.", "hq_location": "Nordic region\n(Exact HQ not widely disclosed)", "company_size": "~11–50 employees\n(Early-stage startup)", "notable_clients": "• Logistics & facilities customers\n(No major named shipping clients publicly disclosed)", "source_notes": "Limited public data", "key_competitor": "Sensoneo", "competitor_does": "Smart waste management system using ultrasonic sensors to monitor bin fill levels, optimize collection routes, and report waste KPIs.", "subtopic": "Resource Use (Waste, Water, Circularity)", "cluster": "Environment & Ecosystems", "id": 30, "slug": "smartends", "searchText": "smartends smart recycling containers with cameras and sensors that monitor fill levels and waste contamination. improves recycling efficiency, reduces unnecessary waste collection trips, and provides measurable waste kpis. nordic region\n(exact hq not widely disclosed) ~11–50 employees\n(early-stage startup) • logistics & facilities customers\n(no major named shipping clients publicly disclosed) sensoneo resource use (waste, water, circularity) environment & ecosystems", "website": "https://smartends.com", "logo_domain": "smartends.com"}, {"tool_platform": "Circulor", "what_it_does": "Circulor tracks all your materials and assets across offices, ports, and depots, including their type, quantity, and condition", "why_useful": "Its AI analyzes which items can be reused, refurbished, or recycled and suggests the best actions to keep them out of landfill. This helps sustainability teams reduce waste, save costs, and improve circularity KPIs.", "hq_location": "London, UK", "company_size": "~51–200 employees\n(Founded 2018, Series B)\nRaised: ~$30M", "notable_clients": "• Volvo Cars\n• Buxton Ltd\n• Materials tracking for ports, depots\n(Primarily EV battery supply chain clients; no major named shipping clients specifically)", "source_notes": "crunchbase.com; circulor.com", "key_competitor": "Sourcemap", "competitor_does": "Supply chain transparency platform that traces materials, maps supplier networks, and identifies recycling and circularity opportunities.", "subtopic": "Resource Use (Waste, Water, Circularity)", "cluster": "Environment & Ecosystems", "id": 31, "slug": "circulor", "searchText": "circulor circulor tracks all your materials and assets across offices, ports, and depots, including their type, quantity, and condition its ai analyzes which items can be reused, refurbished, or recycled and suggests the best actions to keep them out of landfill. this helps sustainability teams reduce waste, save costs, and improve circularity kpis. london, uk ~51–200 employees\n(founded 2018, series b)\nraised: ~$30m • volvo cars\n• buxton ltd\n• materials tracking for ports, depots\n(primarily ev battery supply chain clients; no major named shipping clients specifically) sourcemap resource use (waste, water, circularity) environment & ecosystems", "website": "https://circulor.com", "logo_domain": "circulor.com"}, {"tool_platform": "Sourceful", "what_it_does": "Procurement platform that recommends sustainable materials with recyclable or recycled content.", "why_useful": "Enables sustainable purchasing decisions and reduces packaging waste across logistics operations.", "hq_location": "London, UK", "company_size": "~51–200 employees\n(Founded 2020, Series A)\nRaised: ~$20M", "notable_clients": "• Primarily e-commerce & consumer brands\n(No major named shipping clients disclosed)", "source_notes": "crunchbase.com; sourceful.com", "key_competitor": "EcoVadis Sustainable Procurement", "competitor_does": "Supplier rating and sustainable procurement platform that scores vendors on environmental, social, and ethical criteria for responsible sourcing.", "subtopic": "Resource Use (Waste, Water, Circularity)", "cluster": "Environment & Ecosystems", "id": 32, "slug": "sourceful", "searchText": "sourceful procurement platform that recommends sustainable materials with recyclable or recycled content. enables sustainable purchasing decisions and reduces packaging waste across logistics operations. london, uk ~51–200 employees\n(founded 2020, series a)\nraised: ~$20m • primarily e-commerce & consumer brands\n(no major named shipping clients disclosed) ecovadis sustainable procurement resource use (waste, water, circularity) environment & ecosystems", "website": "https://sourceful.com", "logo_domain": "sourceful.com"}, {"tool_platform": "Smart Vatten", "what_it_does": "Real-time monitoring platform for water consumption with dashboards and efficiency KPIs.", "why_useful": "Helps reduce water usage at ports, terminals, and offices while detecting leaks and inefficiencies.", "hq_location": "Espoo, Finland (HQ)\n(+ North America)", "company_size": "~123 employees\n(Founded 2013, Scale-up)\nEurope & North America", "notable_clients": "• Ports, terminals, offices, hotels, logistics centers\n• Water management for industrial/commercial properties\n(No major named shipping clients specifically disclosed)", "source_notes": "leadiq.com; smartvatten.com", "key_competitor": "Banyan Water", "competitor_does": "Smart water management platform using IoT sensors and analytics to detect leaks, benchmark usage, and reduce water consumption at facilities.", "subtopic": "Resource Use (Waste, Water, Circularity)", "cluster": "Environment & Ecosystems", "id": 33, "slug": "smart-vatten", "searchText": "smart vatten real-time monitoring platform for water consumption with dashboards and efficiency kpis. helps reduce water usage at ports, terminals, and offices while detecting leaks and inefficiencies. espoo, finland (hq)\n(+ north america) ~123 employees\n(founded 2013, scale-up)\neurope & north america • ports, terminals, offices, hotels, logistics centers\n• water management for industrial/commercial properties\n(no major named shipping clients specifically disclosed) banyan water resource use (waste, water, circularity) environment & ecosystems", "website": "https://smartvatten.com", "logo_domain": "smartvatten.com"}, {"tool_platform": "SpheraCloud (Sphera)", "what_it_does": "Cloud EHS/ESG platform for environment, health, safety, product stewardship, and sustainability data management.", "why_useful": "Tracks waste, incidents, compliance across global ops; supports ESG reporting for offices/ships/terminals (e.g., MARPOL, CSRD).", "hq_location": "Chicago, Illinois, USA (offices including Houston for energy).", "company_size": "Mid‑to‑large (clients range 100–10k+ employees; Sphera overall ~1,000+ inferred from scale)", "notable_clients": "American Bureau of Shipping (ABS), Shell (energy/shipping overlap)", "source_notes": "", "key_competitor": "", "competitor_does": "", "subtopic": "Resource Use (Waste, Water, Circularity)", "cluster": "Environment & Ecosystems", "id": 34, "slug": "spheracloud-sphera", "searchText": "spheracloud (sphera) cloud ehs/esg platform for environment, health, safety, product stewardship, and sustainability data management. tracks waste, incidents, compliance across global ops; supports esg reporting for offices/ships/terminals (e.g., marpol, csrd). chicago, illinois, usa (offices including houston for energy). mid‑to‑large (clients range 100–10k+ employees; sphera overall ~1,000+ inferred from scale) american bureau of shipping (abs), shell (energy/shipping overlap)  resource use (waste, water, circularity) environment & ecosystems", "website": "https://sphera.com", "logo_domain": "sphera.com"}, {"tool_platform": "NANDO / Cority MP", "what_it_does": "Uses AI to track waste generation and disposal in real time, reducing errors and manual work.", "why_useful": "Automated Reporting: Collects waste data automatically and exports it for sustainability, ESG, and regulatory reporting.,\nCority also includes food, paper and stationary waste from the companies", "hq_location": "Toronto, Ontario, Canada\n(Cority product)", "company_size": "~500–1,000 employees (Cority)\n(Cority module/product)", "notable_clients": "• Cority's 2,000+ enterprise clients\n(Same base as Cority above)", "source_notes": "cority.com", "key_competitor": "Enablon (Wolters Kluwer)", "competitor_does": "Enterprise EHS and sustainability data management platform offering secure data storage, audit trails, and regulatory compliance reporting.", "subtopic": "Resource Use (Waste, Water, Circularity)", "cluster": "Environment & Ecosystems", "id": 35, "slug": "nando-cority-mp", "searchText": "nando / cority mp uses ai to track waste generation and disposal in real time, reducing errors and manual work. automated reporting: collects waste data automatically and exports it for sustainability, esg, and regulatory reporting.,\ncority also includes food, paper and stationary waste from the companies toronto, ontario, canada\n(cority product) ~500–1,000 employees (cority)\n(cority module/product) • cority's 2,000+ enterprise clients\n(same base as cority above) enablon (wolters kluwer) resource use (waste, water, circularity) environment & ecosystems", "website": "https://cority.com", "logo_domain": "cority.com"}, {"tool_platform": "Degreed", "what_it_does": "Learning and skill management platform that tracks training and identifies skill gaps across the workforce.", "why_useful": "Supports workforce development, ensures crews and terminal staff receive required training, and improves ESG workforce reporting.", "hq_location": "Pleasanton, California, USA\n(+ remote globally)", "company_size": "~534 employees\n(Founded 2012, Series D)\nRaised: ~$165M+\n9M+ learners", "notable_clients": "• Hundreds of global companies\n• Primarily tech, financial services, enterprise\n• Used for maritime crew/staff training programmes\n(No major named shipping clients publicly confirmed)", "source_notes": "rocketreach.co; zoominfo.com; degreed.com", "key_competitor": "Cornerstone OnDemand", "competitor_does": "Talent and learning management platform offering skills tracking, training delivery, and workforce development analytics for ESG reporting.", "subtopic": "Talent Development", "cluster": "Talent Management & Diversity", "id": 36, "slug": "degreed", "searchText": "degreed learning and skill management platform that tracks training and identifies skill gaps across the workforce. supports workforce development, ensures crews and terminal staff receive required training, and improves esg workforce reporting. pleasanton, california, usa\n(+ remote globally) ~534 employees\n(founded 2012, series d)\nraised: ~$165m+\n9m+ learners • hundreds of global companies\n• primarily tech, financial services, enterprise\n• used for maritime crew/staff training programmes\n(no major named shipping clients publicly confirmed) cornerstone ondemand talent development talent management & diversity", "website": "https://degreed.com", "logo_domain": "degreed.com"}, {"tool_platform": "Culture Amp", "what_it_does": "employee engagement & performance management, supports workforce development KPIs", "why_useful": "People analytics & workforce planning; DEI metrics & benchmarking; Workforce CSRD compliance; gender parity & inclusion tracking; supports ESG diversity disclosures for shipping HR teams", "hq_location": "Richmond, Victoria, Australia (HQ)\n+ San Francisco, London, New York, Berlin, Chicago", "company_size": "~961–1,100 employees\n(Founded 2010, Series F)\nRaised: $258M\nValuation: ~$1.5B", "notable_clients": "• 7,500+ companies globally (25M employees)\n• Canva, McDonald's, Nasdaq, Dolby, Asana, PwC, Salesforce, SoulCycle\n• Used by shipping & logistics firms for crew/shore-side engagement surveys\n(No specific named shipping client publicly confirmed)", "source_notes": "pitchbook.com; rocketreach.co; cultureamp.com; leadiq.com (Dec 2025)", "key_competitor": "Lattice", "competitor_does": "The closest direct rival — combines performance, engagement, DEI goals and compensation in one platform", "subtopic": "Talent Development", "cluster": "Talent Management & Diversity", "id": 37, "slug": "culture-amp", "searchText": "culture amp employee engagement & performance management, supports workforce development kpis people analytics & workforce planning; dei metrics & benchmarking; workforce csrd compliance; gender parity & inclusion tracking; supports esg diversity disclosures for shipping hr teams richmond, victoria, australia (hq)\n+ san francisco, london, new york, berlin, chicago ~961–1,100 employees\n(founded 2010, series f)\nraised: $258m\nvaluation: ~$1.5b • 7,500+ companies globally (25m employees)\n• canva, mcdonald's, nasdaq, dolby, asana, pwc, salesforce, soulcycle\n• used by shipping & logistics firms for crew/shore-side engagement surveys\n(no specific named shipping client publicly confirmed) lattice talent development talent management & diversity", "website": "https://cultureamp.com", "logo_domain": "cultureamp.com"}, {"tool_platform": "Visier", "what_it_does": "people analytics & workforce planning, skills benchmarking", "why_useful": "People analytics & workforce planning; DEI metrics & benchmarking; Workforce CSRD compliance; gender parity & inclusion tracking; supports ESG diversity disclosures for shipping HR teams", "hq_location": "Vancouver, BC, Canada (HQ)\n+ Toronto, London, Austin TX\n7 global offices", "company_size": "~474–600 employees\n(Founded 2010, Series E — Unicorn)\nRaised: $216.5M\nValuation: $1B+", "notable_clients": "• 50,000+ customers in 75 countries\n• BASF, Panasonic, Experian, Amgen, eBay, Ford Motor Company, Bridgestone\n• Bridgestone (shipping/logistics supply chain adjacent)\n• Used for workforce CSRD/ESG compliance reporting\n(No major named shipping client publicly confirmed)", "source_notes": "visier.com; pitchbook.com; cbinsights.com (Q1 2024)", "key_competitor": "Workday Prism Analytics", "competitor_does": "The enterprise-scale people analytics layer inside Workday HCM, the most direct competitive alternative", "subtopic": "Talent Development", "cluster": "Talent Management & Diversity", "id": 38, "slug": "visier", "searchText": "visier people analytics & workforce planning, skills benchmarking people analytics & workforce planning; dei metrics & benchmarking; workforce csrd compliance; gender parity & inclusion tracking; supports esg diversity disclosures for shipping hr teams vancouver, bc, canada (hq)\n+ toronto, london, austin tx\n7 global offices ~474–600 employees\n(founded 2010, series e — unicorn)\nraised: $216.5m\nvaluation: $1b+ • 50,000+ customers in 75 countries\n• basf, panasonic, experian, amgen, ebay, ford motor company, bridgestone\n• bridgestone (shipping/logistics supply chain adjacent)\n• used for workforce csrd/esg compliance reporting\n(no major named shipping client publicly confirmed) workday prism analytics talent development talent management & diversity", "website": "https://visier.com", "logo_domain": "visier.com"}, {"tool_platform": "SeaChange (Maritime Crew Wellbeing)", "what_it_does": "Digital mental health and wellbeing platform designed specifically for seafarers, offering confidential counselling, self-assessments, and crisis support.", "why_useful": "Addresses seafarer mental health — a key social ESG risk — through onboard digital access to psychological support, reducing crew turnover and supporting maritime duty-of-care obligations.", "hq_location": "London, UK (HQ)", "company_size": "~11–50 employees\n(Founded ~2018, Early-stage)\nMaritime-specialist wellbeing startup", "notable_clients": "• Crew wellbeing programmes for shipping operators\n• Used by ship management companies and P&I clubs\n(No major named shipping client publicly confirmed)", "source_notes": "seachangewellbeing.com; LinkedIn", "key_competitor": "Headspace for Work", "competitor_does": "Enterprise mental health and mindfulness platform providing employees with guided meditation, stress management, and wellbeing tools — adaptable for crew welfare programmes.", "subtopic": "Talent Development", "cluster": "Talent Management & Diversity", "id": 39, "slug": "seachange-maritime-crew-wellbeing", "searchText": "seachange (maritime crew wellbeing) digital mental health and wellbeing platform designed specifically for seafarers, offering confidential counselling, self-assessments, and crisis support. addresses seafarer mental health — a key social esg risk — through onboard digital access to psychological support, reducing crew turnover and supporting maritime duty-of-care obligations. london, uk (hq) ~11–50 employees\n(founded ~2018, early-stage)\nmaritime-specialist wellbeing startup • crew wellbeing programmes for shipping operators\n• used by ship management companies and p&i clubs\n(no major named shipping client publicly confirmed) headspace for work talent development talent management & diversity", "website": "https://seachangewellbeing.com", "logo_domain": "seachangewellbeing.com"}, {"tool_platform": "Gloat", "what_it_does": "internal mobility & skills matching, retaining and upskilling staff", "why_useful": "AI talent marketplace enabling internal mobility, gig projects & skills matching; helps shipping/logistics companies retain crew & shore staff, reduce external hiring costs, and improve ESG workforce development KPIs", "hq_location": "Tel Aviv, Israel (HQ)\n+ New York, London", "company_size": "~200–350 employees\n(Founded 2015, Series D)\nRaised: ~$210M", "notable_clients": "• Unilever\n• Mastercard\n• Standard Chartered\n• Nestlé\n• PepsiCo\n• Schneider Electric\n• DB Schenker (global logistics/freight — direct shipping sector fit)\n(Confirmed: DB Schenker uses Gloat for internal workforce mobility)", "source_notes": "crunchbase.com; gloat.com; DB Schenker case study", "key_competitor": "Eightfold AI", "competitor_does": "Leading AI talent intelligence platform for internal mobility and skills-based matching", "subtopic": "Diversity, Equity and Inclusion", "cluster": "Talent Management & Diversity", "id": 40, "slug": "gloat", "searchText": "gloat talent management diversity diversity equity inclusionility & skills matching, retaining and upskilling staff ai talent marketplace enabling internal mobility, gig projects & skills matching; helps shipping/logistics companies retain crew & shore staff, reduce external hiring costs, and improve esg workforce development kpis tel aviv, israel (hq)\n+ new york, london ~200–350 employees\n(founded 2015, series d)\nraised: ~$210m • unilever\n• mastercard\n• standard chartered\n• nestlé\n• pepsico\n• schneider electric\n• db schenker (global logistics/freight — direct shipping sector fit)\n(confirmed: db schenker uses gloat for internal workforce mobility) eightfold ai cornerstone ondemand (maritime lms) uncategorized", "website": "https://gloat.com", "logo_domain": "gloat.com"}, {"tool_platform": "Avetta", "what_it_does": "Contractor compliance and risk management platform that verifies safety training, insurance, and certifications.", "why_useful": "Ensures contractors and suppliers meet safety and compliance standards before working at ports or terminals.", "hq_location": "Lehi, Utah, USA\n(+ 12 offices globally in 130+ countries)", "company_size": "~750–1,000 employees\n(Founded 2003, PE-backed by EQT)\nRevenue: ~$263M", "notable_clients": "• 500+ hiring clients; 130,000+ contractors\n• Energy, construction, manufacturing, mining, telecoms\n• Ports/terminals using contractor compliance\n(No major named shipping client specifically disclosed)", "source_notes": "pitchbook.com; avetta.com; EQT press release (Apr 2024)", "key_competitor": "Veriforce (ISNetworld)", "competitor_does": "Contractor management and compliance platform that verifies safety qualifications, insurance, and regulatory certifications for high-risk industries.", "subtopic": "Human Rights Due Diligence", "cluster": "Human & Labour Rights", "id": 41, "slug": "avetta", "searchText": "avetta contractor compliance and risk management platform that verifies safety training, insurance, and certifications. ensures contractors and suppliers meet safety and compliance standards before working at ports or terminals. lehi, utah, usa\n(+ 12 offices globally in 130+ countries) ~750–1,000 employees\n(founded 2003, pe-backed by eqt)\nrevenue: ~$263m • 500+ hiring clients; 130,000+ contractors\n• energy, construction, manufacturing, mining, telecoms\n• ports/terminals using contractor compliance\n(no major named shipping client specifically disclosed) veriforce (isnetworld) human & labour rights human & labour rights", "website": "https://avetta.com", "logo_domain": "avetta.com"}, {"tool_platform": "Diversio", "what_it_does": "DEI measurement & benchmarking, inclusion tracking", "why_useful": "AI-powered DEI measurement, benchmarking & training; tracks gender, nationality, disability, seniority diversity; CSRD/EEO-1/OFCCP/Nasdaq DEI reporting; relevant for maritime diversity & inclusion ESG disclosures", "hq_location": "Toronto, Ontario, Canada (HQ)\n+ Global clients in 50+ countries", "company_size": "~51–100 employees\n(Founded 2018, Growth-stage)\nAcquired CCDI Consulting 2024", "notable_clients": "• 10,000+ companies benchmarked globally\n• Energy, finance, manufacturing, construction sectors\n• Ontario Lottery & Gaming, Hudson's Bay, Lightspeed\n• Investor community (ILPA, World Bank, BVCA)\n(No major named shipping client publicly confirmed)", "source_notes": "cbinsights.com; diversio.com; zoominfo.com", "key_competitor": "Included.ai", "competitor_does": "DEI analytics & automated reporting platform with AI-driven diversity recruiting and attrition risk", "subtopic": "Human Rights Due Diligence", "cluster": "Human & Labour Rights", "id": 42, "slug": "diversio", "searchText": "diversio dei measurement & benchmarking, inclusion tracking ai-powered dei measurement, benchmarking & training; tracks gender, nationality, disability, seniority diversity; csrd/eeo-1/ofccp/nasdaq dei reporting; relevant for maritime diversity & inclusion esg disclosures toronto, ontario, canada (hq)\n+ global clients in 50+ countries ~51–100 employees\n(founded 2018, growth-stage)\nacquired ccdi consulting 2024 • 10,000+ companies benchmarked globally\n• energy, finance, manufacturing, construction sectors\n• ontario lottery & gaming, hudson's bay, lightspeed\n• investor community (ilpa, world bank, bvca)\n(no major named shipping client publicly confirmed) included.ai human & labour rights human & labour rights", "website": "https://diversio.com", "logo_domain": "diversio.com"}, {"tool_platform": "Syndio", "what_it_does": "pay equity analytics, closes gender/race pay gaps, EU Pay Transparency compliance", "why_useful": "Pay equity analytics platform; measures & closes gender/race pay gaps; automates EU Pay Transparency Directive & ESG compensation reporting; supports 'fair pay' ESG KPIs in shipping corporate governance", "hq_location": "Seattle, Washington, USA (HQ)\n+ Chicago, London", "company_size": "~100–200 employees\n(Founded 2016, Series C)\nRaised: ~$50M", "notable_clients": "• T-Mobile\n• Electronic Arts\n• Estee Lauder\n• LinkedIn\n• General Mills\n• Financial services & retail sector clients\n(No major named shipping client — relevant for EU Pay Transparency Directive compliance in large shipping groups)", "source_notes": "crunchbase.com; syndio.com; pitchbook.com", "key_competitor": "Payscale (MarketPay)", "competitor_does": "Most widely used pay equity and compensation benchmarking alternative; strong enterprise market share", "subtopic": "Human Rights Due Diligence", "cluster": "Human & Labour Rights", "id": 43, "slug": "syndio", "searchText": "syndio pay equity analytics, closes gender/race pay gaps, eu pay transparency compliance pay equity analytics platform; measures & closes gender/race pay gaps; automates eu pay transparency directive & esg compensation reporting; supports 'fair pay' esg kpis in shipping corporate governance seattle, washington, usa (hq)\n+ chicago, london ~100–200 employees\n(founded 2016, series c)\nraised: ~$50m • t-mobile\n• electronic arts\n• estee lauder\n• linkedin\n• general mills\n• financial services & retail sector clients\n(no major named shipping client — relevant for eu pay transparency directive compliance in large shipping groups) payscale (marketpay) human & labour rights human & labour rights", "website": "https://syndio.com", "logo_domain": "syndio.com"}, {"tool_platform": "Textio", "what_it_does": "removes hiring bias, improves diversity of applicant pools", "why_useful": "AI-powered inclusive language platform; removes bias from job postings & performance reviews; improves diversity of applicant pools; useful for maritime employers trying to attract broader crew & shore-side talent", "hq_location": "Seattle, Washington, USA (HQ)", "company_size": "~51–200 employees\n(Founded 2014, Series C)\nRaised: ~$42M", "notable_clients": "• McDonald's\n• Johnson & Johnson\n• Expedia\n• General Mills\n• DocuSign\n• 1,000+ enterprise clients\n(No major named shipping client publicly confirmed — applicable for port authorities & shipping HR recruiting)", "source_notes": "crunchbase.com; textio.com; selecthub.com", "key_competitor": "Ongig", "competitor_does": "The closest rival — flags 10,000+ types of biased language across gender, age, race, and disability in job descriptions", "subtopic": "Human Rights Due Diligence", "cluster": "Human & Labour Rights", "id": 44, "slug": "textio", "searchText": "textio removes hiring bias, improves diversity of applicant pools ai-powered inclusive language platform; removes bias from job postings & performance reviews; improves diversity of applicant pools; useful for maritime employers trying to attract broader crew & shore-side talent seattle, washington, usa (hq) ~51–200 employees\n(founded 2014, series c)\nraised: ~$42m • mcdonald's\n• johnson & johnson\n• expedia\n• general mills\n• docusign\n• 1,000+ enterprise clients\n(no major named shipping client publicly confirmed — applicable for port authorities & shipping hr recruiting) ongig human & labour rights human & labour rights", "website": "https://textio.com", "logo_domain": "textio.com"}, {"tool_platform": "Verisk Maplecroft", "what_it_does": "Global ESG and political risk intelligence platform providing country-level and supply chain human rights, labour risk, and regulatory compliance scores.", "why_useful": "Helps shipping companies assess human rights and labour risk across vessel flag states, port countries, and cargo supply chains — supporting CSRD/CSDDD due diligence.", "hq_location": "Bath, UK (HQ)\n(+ London, New York, Cape Town)", "company_size": "~200–500 employees\n(Part of Verisk Analytics Group)\nRevenue: ~$2.6B (Verisk group)", "notable_clients": "• Fortune 500 companies in energy, finance, supply chain\n• Used by shipping & logistics companies for ESG due diligence\n(No single named shipping client specifically disclosed)", "source_notes": "maplecroft.com; verisk.com", "key_competitor": "Sustainalytics (Morningstar)", "competitor_does": "ESG risk ratings and research platform covering supply chain labour risks, human rights controversies, and ESG compliance scoring for institutional investors and corporates.", "subtopic": "Human Rights Due Diligence", "cluster": "Human & Labour Rights", "id": 45, "slug": "verisk-maplecroft", "searchText": "verisk maplecroft global esg and political risk intelligence platform providing country-level and supply chain human rights, labour risk, and regulatory compliance scores. helps shipping companies assess human rights and labour risk across vessel flag states, port countries, and cargo supply chains — supporting csrd/csddd due diligence. bath, uk (hq)\n(+ london, new york, cape town) ~200–500 employees\n(part of verisk analytics group)\nrevenue: ~$2.6b (verisk group) • fortune 500 companies in energy, finance, supply chain\n• used by shipping & logistics companies for esg due diligence\n(no single named shipping client specifically disclosed) sustainalytics (morningstar) human & labour rights human & labour rights", "website": "https://maplecroft.com", "logo_domain": "maplecroft.com"}, {"tool_platform": "Sedex (Supplier Ethical Data Exchange)", "what_it_does": "Collaborative platform for sharing and managing supply chain ethical data including labour rights audits, SMETA assessments, and modern slavery disclosures.", "why_useful": "Enables shipping companies to track supplier and contractor labour standards across ports, crewing agencies, and logistics partners — supporting CSDDD and Modern Slavery Act compliance.", "hq_location": "London, UK (HQ)\n(+ global offices)", "company_size": "~100–200 employees\n(Founded 2001, Member org)\n~85,000 members in 180 countries", "notable_clients": "• 85,000+ supplier members globally\n• Retail, FMCG, food, manufacturing\n• Port and logistics contractor compliance\n(No major named shipping client specifically disclosed)", "source_notes": "sedex.com; LinkedIn", "key_competitor": "EcoVadis (Supply Chain Sustainability)", "competitor_does": "Supplier sustainability ratings platform scoring vendors on environment, labour, ethics, and sustainable procurement — widely used for CSRD supply chain due diligence.", "subtopic": "Human Rights Due Diligence", "cluster": "Human & Labour Rights", "id": 46, "slug": "sedex-supplier-ethical-data-exchange", "searchText": "sedex (supplier ethical data exchange) collaborative platform for sharing and managing supply chain ethical data including labour rights audits, smeta assessments, and modern slavery disclosures. enables shipping companies to track supplier and contractor labour standards across ports, crewing agencies, and logistics partners — supporting csddd and modern slavery act compliance. london, uk (hq)\n(+ global offices) ~100–200 employees\n(founded 2001, member org)\n~85,000 members in 180 countries • 85,000+ supplier members globally\n• retail, fmcg, food, manufacturing\n• port and logistics contractor compliance\n(no major named shipping client specifically disclosed) ecovadis (supply chain sustainability) human & labour rights human & labour rights", "website": "https://sedex.com", "logo_domain": "sedex.com"}, {"tool_platform": "Ulula (Ecovadis worker voice)", "what_it_does": "Anonymous worker feedback platform for reporting grievances and working conditions issues.", "why_useful": "Helps companies detect labor rights risks early and improve worker welfare across ships and ports.", "hq_location": "Toronto, Ontario, Canada\n(Now part of EcoVadis)", "company_size": "~11–50 employees pre-acquisition\n(Founded ~2014; acquired by EcoVadis)", "notable_clients": "• Energy, mining, agribusiness high-impact industries\n• Workers in supply chains (shipping, ports, logistics)\n(No major named shipping client specifically disclosed)", "source_notes": "6sense.com; EcoVadis/Ulula.com", "key_competitor": "Navex (Speak Up / EthicsPoint)", "competitor_does": "Whistleblower hotline and worker feedback platform enabling anonymous reporting of grievances, labor violations, and ethical concerns.", "subtopic": "Human Rights Due Diligence", "cluster": "Human & Labour Rights", "id": 47, "slug": "ulula-ecovadis-worker-voice", "searchText": "ulula (ecovadis worker voice) anonymous worker feedback platform for reporting grievances and working conditions issues. helps companies detect labor rights risks early and improve worker welfare across ships and ports. toronto, ontario, canada\n(now part of ecovadis) ~11–50 employees pre-acquisition\n(founded ~2014; acquired by ecovadis) • energy, mining, agribusiness high-impact industries\n• workers in supply chains (shipping, ports, logistics)\n(no major named shipping client specifically disclosed) navex (speak up / ethicspoint) human & labour rights human & labour rights", "website": "https://ulula.com", "logo_domain": "ulula.com"}, {"tool_platform": "Behaviometrics AI (Humanising Autonomy)", "what_it_does": "AI behavioural safety analytics platform detecting fatigue, distraction, and risk-taking behaviours among crew and port workers using wearable and CCTV data.", "why_useful": "Monitors seafarer and dockworker fatigue in real time, reducing accident risk and supporting SIRE 2.0/ISM Code compliance and ESG safety KPIs.", "hq_location": "London, UK\n(+ San Francisco, CA)", "company_size": "~51–100 employees\n(Founded 2018, Series A)\nRaised: ~$15M", "notable_clients": "• Logistics & autonomous vehicle clients\n• Port operator and crew welfare use cases\n(No major named shipping client publicly confirmed)", "source_notes": "humanisedautonomy.com; crunchbase.com", "key_competitor": "Seeing Machines", "competitor_does": "Computer vision operator monitoring platform detecting drowsiness and distraction in real time for transport, fleet, and maritime safety compliance.", "subtopic": "Health and Safety", "cluster": "Health & Safety", "id": 48, "slug": "behaviometrics-ai-humanising-autonomy", "searchText": "behaviometrics ai (humanising autonomy) ai behavioural safety analytics platform detecting fatigue, distraction, and risk-taking behaviours among crew and port workers using wearable and cctv data. monitors seafarer and dockworker fatigue in real time, reducing accident risk and supporting sire 2.0/ism code compliance and esg safety kpis. london, uk\n(+ san francisco, ca) ~51–100 employees\n(founded 2018, series a)\nraised: ~$15m • logistics & autonomous vehicle clients\n• port operator and crew welfare use cases\n(no major named shipping client publicly confirmed) seeing machines health & safety health & safety", "website": "https://humanisedautonomy.com", "logo_domain": "humanisedautonomy.com"}, {"tool_platform": "SafetyCulture (iAuditor)", "what_it_does": "Mobile-first operational safety platform for digital checklists, incident reporting, safety observations, and corrective action tracking.", "why_useful": "Digitises vessel and port safety inspections, near-miss reporting, and corrective actions — replacing paper logs and supporting SIRE/ISM Code compliance and ESG safety KPIs.", "hq_location": "Sydney, Australia (HQ)\n(+ Kansas City, Manchester, Manila)", "company_size": "~800–1,000 employees\n(Founded 2004, Series E)\nRaised: ~$430M\nValuation: ~$1.7B", "notable_clients": "• BHP, Tyson Foods, Veolia, Bupa\n• 1M+ users in 180 countries\n• Port and maritime operations use cases\n(No single dominant named shipping client publicly confirmed)", "source_notes": "safetyculture.com; crunchbase.com", "key_competitor": "Inpixon (EHS Insight)", "competitor_does": "EHS management platform for incident reporting, inspections, audits, and compliance tracking across industrial and maritime operations.", "subtopic": "Health and Safety", "cluster": "Health & Safety", "id": 49, "slug": "safetyculture-iauditor", "searchText": "safetyculture (iauditor) mobile-first operational safety platform for digital checklists, incident reporting, safety observations, and corrective action tracking. digitises vessel and port safety inspections, near-miss reporting, and corrective actions — replacing paper logs and supporting sire/ism code compliance and esg safety kpis. sydney, australia (hq)\n(+ kansas city, manchester, manila) ~800–1,000 employees\n(founded 2004, series e)\nraised: ~$430m\nvaluation: ~$1.7b • bhp, tyson foods, veolia, bupa\n• 1m+ users in 180 countries\n• port and maritime operations use cases\n(no single dominant named shipping client publicly confirmed) inpixon (ehs insight) health & safety health & safety", "website": "https://safetyculture.com", "logo_domain": "safetyculture.com"}, {"tool_platform": "Intenseye", "what_it_does": "AI safety monitoring system using CCTV to detect hazards like missing PPE or unsafe movements.", "why_useful": "Improves safety in high-risk environments such as ports and container terminals through real-time alerts.", "hq_location": "New York, NY, USA\n(+ Istanbul, Turkey)", "company_size": "~139–143 employees\n(Founded 2018, Series B)\nRaised: ~$94M", "notable_clients": "• 100,000+ workers protected at Fortune 500 companies\n• Automotive, food & beverage, life sciences, retail, consumer goods\n• 25+ countries; port & terminal use cases\n(No major named shipping client publicly confirmed)", "source_notes": "pitchbook.com; leadiq.com; intenseye.com", "key_competitor": "Protex AI", "competitor_does": "AI-powered workplace safety platform using existing CCTV to detect PPE non-compliance, unsafe behaviours, and hazards in real time.", "subtopic": "Health and Safety", "cluster": "Health & Safety", "id": 50, "slug": "intenseye", "searchText": "intenseye ai safety monitoring system using cctv to detect hazards like missing ppe or unsafe movements. improves safety in high-risk environments such as ports and container terminals through real-time alerts. new york, ny, usa\n(+ istanbul, turkey) ~139–143 employees\n(founded 2018, series b)\nraised: ~$94m • 100,000+ workers protected at fortune 500 companies\n• automotive, food & beverage, life sciences, retail, consumer goods\n• 25+ countries; port & terminal use cases\n(no major named shipping client publicly confirmed) protex ai health & safety health & safety", "website": "https://intenseye.com", "logo_domain": "intenseye.com"}];
+
+var CLUSTERS = [
+  {name:"Climate Change", subs:["Climate Change Mitigation","Climate Change Adaptation"]},
+  {name:"Environment & Ecosystems", subs:["Pollution","Biodiversity & Ecosystems","Resource Use (Waste, Water, Circularity)"]},
+  {name:"Talent Management & Diversity", subs:["Talent Development","Diversity, Equity and Inclusion"]},
+  {name:"Human & Labour Rights", subs:["People and Working Conditions","Human Rights Due Diligence"]},
+  {name:"Health & Safety", subs:["Health and Safety","Security"]}
+];
+
+/* ── STORAGE helpers ── */
+function getSaved(){try{return JSON.parse(localStorage.getItem('esg_edits')||'{}');}catch(e){return {};}}
+function setSaved(obj){localStorage.setItem('esg_edits',JSON.stringify(obj));}
+function getLogos(){try{return JSON.parse(localStorage.getItem('esg_logos')||'{}');}catch(e){return {};}}
+function setLogos(obj){localStorage.setItem('esg_logos',JSON.stringify(obj));}
+function getCmp(){try{return JSON.parse(localStorage.getItem('esg_cmp')||'[]');}catch(e){return[];}}
+function setCmp(a){localStorage.setItem('esg_cmp',JSON.stringify(a));updateBadge();}
+function toggleCmp(id){
+  var c=getCmp(), i=c.indexOf(id);
+  if(i>=0){c.splice(i,1);}
+  else if(c.length<3){c.push(id);}
+  else{alert('Max 3 tools. Remove one first.');return;}
+  setCmp(c);
+}
+function updateBadge(){document.getElementById('cmp-badge').textContent=getCmp().length;}
+
+/* Get effective field value (edited > original) */
+function fieldVal(d, key){
+  var edits=getSaved();
+  var k=String(d.id)+':'+key;
+  return (edits[k]!==undefined)?edits[k]:d[key];
+}
+
+function go(hash){window.location.hash=hash;}
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function setNav(hsh){
+  document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active');});
+  if(hsh==='#/'||hsh==='#')document.getElementById('nav-home').classList.add('active');
+  else if(hsh.startsWith('#/companies'))document.getElementById('nav-dir').classList.add('active');
+}
+function parseHash(){
+  var hsh=window.location.hash||'#/';
+  setNav(hsh);
+  if(hsh==='#/'||hsh==='#'){showPage('home');renderHome();return;}
+  if(hsh.startsWith('#/company/')){showPage('detail');renderDetail(hsh.slice(10));return;}
+  if(hsh.startsWith('#/companies')){
+    var qs=hsh.includes('?')?hsh.split('?')[1]:'';
+    showPage('companies');renderDirWith(Object.fromEntries(new URLSearchParams(qs)));return;
+  }
+  if(hsh==='#/compare'){showPage('compare');renderCompare();return;}
+  if(hsh.startsWith('#/add')){
+    var qs3=hsh.includes('?')?hsh.split('?')[1]:'';
+    var p3=Object.fromEntries(new URLSearchParams(qs3));
+    showPage('add');renderAddPage(p3);
+    document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active');});
+    var na=document.getElementById('nav-add');if(na)na.classList.add('active');
+    return;
+  }
+  showPage('home');renderHome();
+}
+window.addEventListener('hashchange',parseHash);
+window.addEventListener('load',function(){updateBadge();/* DB init handled by Supabase block below */});
+
+/* Toast */
+var toastTimer=null;
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  if(toastTimer)clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.classList.remove('show');},2500);
+}
+
+/* Logo helper - checks localStorage custom logos first */
+function getLogoSrc(d){
+  var logos=getLogos();
+  return logos[String(d.id)]||null;
+}
+
+function makeLogo(d, imgCls, fbCls, sz){
+  var custom=getLogoSrc(d);
+  if(custom){
+    var img=document.createElement('img');
+    img.className=imgCls;img.alt=d.tool_platform+' logo';
+    img.width=sz;img.height=sz;img.src=custom;
+    return img;
+  }
+  if(d.logo_domain){
+    var img2=document.createElement('img');
+    img2.className=imgCls;img2.alt=d.tool_platform+' logo';
+    img2.width=sz;img2.height=sz;
+    img2.src='https://logo.clearbit.com/'+d.logo_domain;
+    img2.onerror=function(){
+      var fb=document.createElement('div');fb.className=fbCls;
+      fb.textContent=d.tool_platform.charAt(0).toUpperCase();
+      if(img2.parentNode)img2.parentNode.replaceChild(fb,img2);
+    };
+    return img2;
+  }
+  var fb2=document.createElement('div');fb2.className=fbCls;
+  fb2.textContent=d.tool_platform.charAt(0).toUpperCase();
+  return fb2;
+}
+
+/* ── HOME ── */
+function renderHome(){
+  var grid=document.getElementById('clusters-grid');
+  if(!grid) return;
+  grid.innerHTML='';
+  var allData=DATA.concat(sharedCompanies).concat(getUserCos());
+  CLUSTERS.forEach(function(cl){
+    var cnt=allData.filter(function(d){return d.cluster===cl.name;}).length;
+    var card=document.createElement('div');card.className='cluster-card';
+    var hdr=document.createElement('div');hdr.className='cluster-hdr';
+    var hs=document.createElement('span');hs.textContent=cl.name;
+    var badge=document.createElement('span');badge.className='cl-badge';badge.textContent=cnt+' tools';
+    hdr.appendChild(hs);hdr.appendChild(badge);
+    hdr.addEventListener('click',function(){go('#/companies?cluster='+encodeURIComponent(cl.name));});
+    var body=document.createElement('div');body.className='cluster-body';
+    var ul=document.createElement('ul');ul.className='sub-list';
+    cl.subs.forEach(function(sub){
+      var li=document.createElement('li');li.textContent=sub;
+      li.addEventListener('click',function(e){
+        e.stopPropagation();
+        go('#/companies?cluster='+encodeURIComponent(cl.name)+'&subtopic='+encodeURIComponent(sub));
+      });
+      ul.appendChild(li);
+    });
+    body.appendChild(ul);card.appendChild(hdr);card.appendChild(body);grid.appendChild(card);
+  });
+}
+
+/* ── DIRECTORY ── */
+var DS={q:'',cluster:'',subtopic:''};
+function renderDirWith(p){
+  DS={q:p.q||'',cluster:p.cluster||'',subtopic:p.subtopic||''};
+  document.getElementById('dir-q').value=DS.q;
+  buildClusterOpts(DS.cluster);buildSubOpts(DS.cluster,DS.subtopic);renderDir();
+}
+function buildClusterOpts(sel){
+  var el=document.getElementById('dir-cluster');
+  if(!el) return;
+  el.innerHTML='<option value="">All Clusters</option>';
+  var cs=[...new Set(getAllData().map(function(d){return d.cluster;}))].sort();
+  cs.forEach(function(c){
+    var o=document.createElement('option');o.value=c;o.textContent=c;
+    if(c===sel)o.selected=true;el.appendChild(o);
+  });
+}
+
+function buildSubOpts(cluster,sel){
+  var el=document.getElementById('dir-sub');
+  if(!el) return;
+  el.innerHTML='<option value="">All Subtopics</option>';
+  var seen={};var ss=[];
+  getAllData().filter(function(d){return !cluster||d.cluster===cluster;}).forEach(function(d){
+    var k=(d.subtopic||'').trim();
+    if(k&&!seen[k]){seen[k]=true;ss.push(k);}
+  });
+  ss.sort().forEach(function(sv){
+    var o=document.createElement('option');o.value=sv;o.textContent=sv;
+    if(sv===sel)o.selected=true;el.appendChild(o);
+  });
+}
+
+function syncSubs(){buildSubOpts(document.getElementById('dir-cluster').value,'');renderDir();}
+
+function renderDirWith(p){
+  DS={q:p.q||'',cluster:p.cluster||'',subtopic:p.subtopic||''};
+  document.getElementById('dir-q').value=DS.q;
+  buildClusterOpts(DS.cluster);buildSubOpts(DS.cluster,DS.subtopic);renderDir();
+}
+
+function renderDir(){
+  var q=(document.getElementById('dir-q').value||'').toLowerCase().trim();
+  var cluster=document.getElementById('dir-cluster').value;
+  var subtopic=document.getElementById('dir-sub').value;
+  var sort=document.getElementById('dir-sort').value;
+  var all=getAllData();
+  var total=all.length;
+  var label='All '+total+' tools and platforms';
+  if(cluster)label=cluster;
+  if(subtopic)label=subtopic+(cluster?' \u00b7 '+cluster:'');
+  document.getElementById('dir-label').textContent=label;
+  var res=all.filter(function(d){
+    if(q&&!(d.searchText||'').toLowerCase().includes(q)&&!(d.tool_platform||'').toLowerCase().includes(q))return false;
+    if(cluster&&d.cluster!==cluster)return false;
+    if(subtopic&&d.subtopic!==subtopic)return false;
+    return true;
+  });
+  if(sort==='az')res.sort(function(a,b){return a.tool_platform.localeCompare(b.tool_platform);});
+  if(sort==='za')res.sort(function(a,b){return b.tool_platform.localeCompare(a.tool_platform);});
+  if(sort==='cluster')res.sort(function(a,b){return a.cluster.localeCompare(b.cluster)||a.tool_platform.localeCompare(b.tool_platform);});
+  document.getElementById('res-count').textContent=res.length+' tool'+(res.length!==1?'s':'')+' found';
+  renderChips(q,cluster,subtopic);
+  var grid=document.getElementById('dir-grid');grid.innerHTML='';
+  if(!res.length){
+    var nope=document.createElement('div');nope.className='no-results';
+    nope.innerHTML='<h3>No tools found</h3><p>Try adjusting your search or filters.</p>';
+    grid.appendChild(nope);return;
+  }
+  var cids=getCmp();
+  res.forEach(function(d){
+    var inC=cids.indexOf(d.id)>=0;
+    var card=document.createElement('div');
+    card.className='tool-card'+(inC?' selected':'')+(d.isUserAdded?' user-added':'');
+    var top=document.createElement('div');top.className='tc-top';
+    top.appendChild(makeLogo(d,'tc-logo','tc-logo-fallback',44));
+    var nw=document.createElement('div');nw.className='tc-name-wrap';
+    var nm=document.createElement('div');nm.className='tc-name';nm.textContent=d.tool_platform;
+    if(d.isUserAdded){var ub=document.createElement('span');ub.className='user-badge';ub.textContent='Added by you';nm.appendChild(ub);}
+    var tg=document.createElement('div');tg.className='tags';
+    var t1=document.createElement('span');t1.className='tag tag-cl';t1.textContent=d.cluster;
+    var t2=document.createElement('span');t2.className='tag tag-sub';t2.textContent=d.subtopic;
+    tg.appendChild(t1);tg.appendChild(t2);nw.appendChild(nm);nw.appendChild(tg);top.appendChild(nw);card.appendChild(top);
+    var body=document.createElement('div');body.className='tc-body';
+    var what=fieldVal(d,'what_it_does');
+    if(what){var wl=document.createElement('div');wl.className='tc-what-label';wl.textContent='What it does';var wv=document.createElement('div');wv.className='tc-what';wv.textContent=what;body.appendChild(wl);body.appendChild(wv);}
+    var why=fieldVal(d,'why_useful');
+    if(why){var yl=document.createElement('div');yl.className='tc-why-label';yl.textContent='Why useful for shipping';var yv=document.createElement('div');yv.className='tc-why';yv.textContent=why;body.appendChild(yl);body.appendChild(yv);}
+    if(d.hq_location){var mt=document.createElement('div');mt.className='tc-meta';mt.textContent='\uD83D\uDCCD '+d.hq_location.split('\n')[0]+(d.company_size?' \u2022 '+d.company_size.split('\n')[0]:'');body.appendChild(mt);}
+    card.appendChild(body);
+    var footer=document.createElement('div');footer.className='tc-footer';
+    var btnC=document.createElement('button');btnC.className='btn-cmp'+(inC?' in-cmp':'');
+    btnC.textContent=inC?'\u2713 In Compare':'+ Compare';
+    btnC.addEventListener('click',function(e){e.stopPropagation();toggleCmp(d.id);renderDir();});
+    footer.appendChild(btnC);
+    var rhs=document.createElement('div');rhs.className='tc-footer-right';
+    var ws=fieldVal(d,'website');
+    if(ws){var wb=document.createElement('a');wb.className='btn-website-sm';wb.href=ws;wb.target='_blank';wb.rel='noopener';wb.textContent='\uD83D\uDD17 Website';wb.addEventListener('click',function(e){e.stopPropagation();});rhs.appendChild(wb);}
+    if(d.isUserAdded){var eb=document.createElement('button');eb.className='btn-view';eb.textContent='\u270F Edit';eb.addEventListener('click',function(e){e.stopPropagation();go('#/add?edit='+String(d.id));});rhs.appendChild(eb);}
+    var btnV=document.createElement('button');btnV.className='btn-view';btnV.textContent='Details \u2192';
+    btnV.addEventListener('click',function(e){e.stopPropagation();go('#/company/'+d.slug);});
+    rhs.appendChild(btnV);footer.appendChild(rhs);card.appendChild(footer);
+    card.addEventListener('click',function(){go('#/company/'+d.slug);});
+    grid.appendChild(card);
+  });
+}
+
+
+function renderChips(q,cluster,subtopic){
+  var w=document.getElementById('chips');w.innerHTML='';
+  if(q)addChip(w,'Search: '+q,function(){document.getElementById('dir-q').value='';renderDir();});
+  if(cluster)addChip(w,cluster,function(){document.getElementById('dir-cluster').value='';buildSubOpts('','');renderDir();});
+  if(subtopic)addChip(w,subtopic,function(){document.getElementById('dir-sub').value='';renderDir();});
+}
+function addChip(wrap,label,fn){
+  var chip=document.createElement('span');chip.className='chip';
+  var txt=document.createElement('span');txt.textContent=label;
+  var btn=document.createElement('button');btn.textContent='\u00d7';btn.addEventListener('click',fn);
+  chip.appendChild(txt);chip.appendChild(btn);wrap.appendChild(chip);
+}
+
+/* ── DETAIL ── */
+var currentSlug=null;
+
+function renderDetail(slug){
+  currentSlug=slug;
+  var d=DATA.find(function(x){return x.slug===slug;});
+  var wrap=document.getElementById('detail-wrap');
+  if(!d){wrap.innerHTML='<p style="padding:2rem;color:var(--muted);">Tool not found.</p>';return;}
+  var inC=getCmp().indexOf(d.id)>=0;
+  var edits=getSaved();
+  wrap.innerHTML='';
+
+  /* Hero */
+  var hero=document.createElement('div');hero.className='det-hero';
+  var heroTop=document.createElement('div');heroTop.className='det-hero-top';
+
+  /* Logo with upload button */
+  var logoWrap=document.createElement('div');logoWrap.className='det-logo-wrap';
+  logoWrap.appendChild(makeLogo(d,'det-logo','det-logo-fb',72));
+
+  /* Upload button */
+  var uploadBtn=document.createElement('div');uploadBtn.className='logo-upload-btn';uploadBtn.title='Upload custom logo';uploadBtn.textContent='\u270F';
+  var fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='image/*';fileInput.className='logo-file-input';
+  fileInput.addEventListener('change',function(){
+    var file=this.files[0];if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var logos=getLogos();logos[String(d.id)]=e.target.result;setLogos(logos);
+      toast('\uD83D\uDDBC\uFE0F Logo saved!');
+      renderDetail(slug);
+    };
+    reader.readAsDataURL(file);
+  });
+  uploadBtn.addEventListener('click',function(){fileInput.click();});
+  logoWrap.appendChild(uploadBtn);logoWrap.appendChild(fileInput);
+  heroTop.appendChild(logoWrap);
+
+  var tw=document.createElement('div');tw.className='det-title-wrap';
+  var titleWrap=document.createElement('div');titleWrap.style.cssText='display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.15rem;';
+  var title=document.createElement('h1');title.style.cssText='margin:0;font-family:\'DM Serif Display\',serif;font-size:1.75rem;font-weight:400;color:var(--navy);line-height:1.2;';
+  title.textContent=fieldVal(d,'tool_platform')||d.tool_platform;
+  var editNameBtn=document.createElement('button');editNameBtn.className='btn-edit-name';editNameBtn.textContent='\u270F';editNameBtn.title='Edit company name';
+  editNameBtn.addEventListener('click',function(){
+    var ex=titleWrap.querySelector('.name-edit-wrap');if(ex){ex.remove();return;}
+    var ew=document.createElement('div');ew.className='name-edit-wrap';
+    var inp=document.createElement('input');inp.type='text';inp.className='name-edit-inp form-input';
+    inp.value=title.textContent;inp.placeholder='Company name';
+    var sv=document.createElement('button');sv.className='btn-field-save';sv.textContent='\u2713 Save';
+    var cn=document.createElement('button');cn.className='btn-field-cancel';cn.textContent='Cancel';
+    sv.addEventListener('click',function(){
+      var v=inp.value.trim();if(!v)return;
+      var edits=getSaved();edits[String(d.id)+':tool_platform']=v;setSaved(edits);
+      title.textContent=v;ew.remove();toast('\u2713 Name saved!');
+    });
+    cn.addEventListener('click',function(){ew.remove();});
+    ew.appendChild(inp);ew.appendChild(sv);ew.appendChild(cn);
+    titleWrap.appendChild(ew);inp.focus();inp.select();
+  });
+  titleWrap.appendChild(title);titleWrap.appendChild(editNameBtn);
+  var dtags=document.createElement('div');dtags.className='det-tags';
+  var dc=document.createElement('span');dc.className='tag tag-cl';dc.textContent=d.cluster;
+  var ds2=document.createElement('span');ds2.className='tag tag-sub';ds2.textContent=d.subtopic;
+  dtags.appendChild(dc);dtags.appendChild(ds2);
+  tw.appendChild(titleWrap);tw.appendChild(dtags);heroTop.appendChild(tw);hero.appendChild(heroTop);
+
+  /* Actions */
+  var acts=document.createElement('div');acts.className='det-acts';
+
+  /* Website link button - rebuilt when URL changes */
+  var websiteBtnSlot=document.createElement('span');
+  /* Edit URL button - always visible */
+  var editUrlBtn=document.createElement('button');editUrlBtn.className='btn-edit-url';
+
+  function rebuildWebsiteBtn(){
+    websiteBtnSlot.innerHTML='';
+    var curUrl=fieldVal(d,'website');
+    editUrlBtn.textContent='\u270F '+(curUrl?'Edit URL':'+ Add URL');
+    if(curUrl){
+      var lnk=document.createElement('a');lnk.href=curUrl;lnk.target='_blank';lnk.rel='noopener';
+      lnk.className='btn-primary';lnk.textContent='\uD83D\uDD17 Visit Website';
+      websiteBtnSlot.appendChild(lnk);
+    } else {
+      var nourl=document.createElement('span');nourl.className='btn-nourl';nourl.textContent='Website not provided';
+      websiteBtnSlot.appendChild(nourl);
+    }
+  }
+  rebuildWebsiteBtn();
+
+  editUrlBtn.addEventListener('click',function(){
+    var existing=document.getElementById('url-editor-popup');
+    if(existing){existing.remove();return;}
+    var curUrl=fieldVal(d,'website');
+    var editor=document.createElement('div');editor.id='url-editor-popup';editor.className='url-editor';
+    var inp=document.createElement('input');inp.type='text';inp.className='url-input';
+    inp.value=curUrl||'';inp.placeholder='https://example.com';
+    var saveU=document.createElement('button');saveU.className='btn-field-save';saveU.textContent='\u2713 Save';
+    var clearU=document.createElement('button');clearU.className='btn-discard';clearU.textContent='Clear';
+    var cancelU=document.createElement('button');cancelU.className='btn-field-cancel';cancelU.textContent='Cancel';
+    saveU.addEventListener('click',function(){
+      var v=inp.value.trim();
+      var edits=getSaved();var ek=String(d.id)+':website';
+      if(v){edits[ek]=v;}else{delete edits[ek];}
+      setSaved(edits);toast('\u2713 Website URL saved!');
+      editor.remove();rebuildWebsiteBtn();
+    });
+    clearU.addEventListener('click',function(){
+      var edits=getSaved();delete edits[String(d.id)+':website'];
+      setSaved(edits);toast('URL cleared');
+      editor.remove();rebuildWebsiteBtn();
+    });
+    cancelU.addEventListener('click',function(){editor.remove();});
+    editor.appendChild(inp);editor.appendChild(saveU);editor.appendChild(clearU);editor.appendChild(cancelU);
+    /* Insert editor below acts row */
+    acts.parentNode.insertBefore(editor,acts.nextSibling);
+    inp.focus();inp.select();
+  });
+
+  acts.appendChild(websiteBtnSlot);
+  acts.appendChild(editUrlBtn);
+
+  var cmpBtn=document.createElement('button');cmpBtn.className='btn-secondary'+(inC?' in-cmp':'');
+  cmpBtn.textContent=inC?'\u2713 In Compare':'+ Add to Compare';
+  cmpBtn.addEventListener('click',function(){
+    toggleCmp(d.id);var now=getCmp().indexOf(d.id)>=0;
+    cmpBtn.textContent=now?'\u2713 In Compare':'+ Add to Compare';
+    cmpBtn.className='btn-secondary'+(now?' in-cmp':'');
+  });
+  acts.appendChild(cmpBtn);hero.appendChild(acts);wrap.appendChild(hero);
+
+  /* Check for any saved edits for this tool */
+  var hasEdits=Object.keys(edits).some(function(k){return k.startsWith(String(d.id)+':');});
+  if(hasEdits){
+    var banner=document.createElement('div');banner.className='edit-banner';
+    var bannerTxt=document.createElement('span');bannerTxt.innerHTML='\u270F\uFE0F This tool has <strong>custom edits</strong> saved on this device.';
+    var bannerBtns=document.createElement('div');bannerBtns.className='edit-banner-btns';
+    var discardBtn=document.createElement('button');discardBtn.className='btn-discard';discardBtn.textContent='Discard all edits';
+    discardBtn.addEventListener('click',function(){
+      var e2=getSaved();
+      Object.keys(e2).forEach(function(k){if(k.startsWith(String(d.id)+':'))delete e2[k];});
+      setSaved(e2);toast('Edits discarded');renderDetail(slug);
+    });
+    bannerBtns.appendChild(discardBtn);banner.appendChild(bannerTxt);banner.appendChild(bannerBtns);
+    wrap.appendChild(banner);
+  }
+
+  /* Fields grid */
+  var grid=document.createElement('div');grid.className='det-grid';
+  var FLDS=[
+    {k:'what_it_does',l:'What it does',full:true,hi:false},
+    {k:'why_useful',l:'Why useful for a shipping company',full:true,hi:true},
+    {k:'hq_location',l:'HQ Location',full:false,hi:false},
+    {k:'company_size',l:'Company Size',full:false,hi:false},
+    {k:'notable_clients',l:'Notable Shipping Industry Clients',full:true,hi:false},
+    {k:'key_competitor',l:'Key Competitor',full:false,hi:false},
+    {k:'competitor_does',l:'What the Competitor Does',full:true,hi:false},
+    {k:'source_notes',l:'Source / Notes',full:true,hi:false},
+    {k:'website',l:'Website URL',full:false,hi:false},
+    {k:'cluster',l:'ESG Cluster',full:false,hi:false},
+    {k:'subtopic',l:'ESG Subtopic',full:false,hi:false}
+  ];
+
+  FLDS.forEach(function(f){
+    var editKey=String(d.id)+':'+f.k;
+    var isModified=edits[editKey]!==undefined;
+    var curVal=isModified?edits[editKey]:d[f.k];
+    var hasVal=curVal&&curVal.trim();
+
+    var box=document.createElement('div');
+    box.className='det-field'+(f.full?' full':'')+(f.hi&&!isModified?' highlight':'')+(isModified?' modified':'');
+
+    /* Label row */
+    var lbl=document.createElement('div');lbl.className='fld-lbl';
+    var lblTxt=document.createElement('span');lblTxt.textContent=f.l;
+    if(isModified){var mb=document.createElement('span');mb.className='modified-badge';mb.textContent='edited';lblTxt.appendChild(mb);}
+    lbl.appendChild(lblTxt);
+
+    /* Edit pencil */
+    var editBtn=document.createElement('button');editBtn.className='btn-edit-field';editBtn.textContent='\u270F Edit';
+    editBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      openFieldEditor(box,d,f.k,f.l,curVal);
+    });
+    lbl.appendChild(editBtn);
+
+    /* Value */
+    var val=document.createElement('div');
+    val.className='fld-val'+(hasVal?'':' empty');
+    val.textContent=hasVal?curVal:'Not provided — click \u270F Edit to add';
+
+    box.appendChild(lbl);box.appendChild(val);grid.appendChild(box);
+  });
+  wrap.appendChild(grid);
+}
+
+function openFieldEditor(box, d, key, label, currentVal){
+  /* Remove any existing editor */
+  var existing=box.querySelector('.field-editor-wrap');
+  if(existing){existing.remove();return;}
+
+  var editorWrap=document.createElement('div');editorWrap.className='field-editor-wrap';
+  var ta=document.createElement('textarea');ta.className='field-textarea';
+  ta.value=currentVal||'';ta.placeholder='Enter '+label+'...';
+  ta.rows=4;
+
+  var btnRow=document.createElement('div');btnRow.className='field-edit-actions';
+  var saveBtn=document.createElement('button');saveBtn.className='btn-field-save';saveBtn.textContent='\u2713 Save';
+  var cancelBtn=document.createElement('button');cancelBtn.className='btn-field-cancel';cancelBtn.textContent='Cancel';
+
+  saveBtn.addEventListener('click',function(){
+    var newVal=ta.value.trim();
+    var edits=getSaved();
+    var editKey=String(d.id)+':'+key;
+    if(newVal===''||(newVal===d[key])){
+      delete edits[editKey];
+    } else {
+      edits[editKey]=newVal;
+    }
+    setSaved(edits);
+    toast('\u2713 Saved!');
+    renderDetail(currentSlug);
+  });
+  cancelBtn.addEventListener('click',function(){editorWrap.remove();});
+
+  btnRow.appendChild(saveBtn);btnRow.appendChild(cancelBtn);
+  editorWrap.appendChild(ta);editorWrap.appendChild(btnRow);
+  box.appendChild(editorWrap);
+  ta.focus();ta.selectionStart=ta.value.length;
+}
+
+/* ── COMPARE ── */
+function renderCompare(){
+  var ids=getCmp();var wrap=document.getElementById('cmp-content');wrap.innerHTML='';
+  if(!ids.length){
+    var msg=document.createElement('div');msg.className='cmp-empty';
+    msg.innerHTML='<h3>No tools selected</h3><p>Go to the <a class="link" onclick="go(\'#/companies\')">Directory</a> and click \u201c+ Compare\u201d on up to 3 tools.</p>';
+    wrap.appendChild(msg);return;
+  }
+  var items=ids.map(function(id){return DATA.find(function(d){return d.id===id;});}).filter(Boolean);
+  var FLDS=[
+    {k:'what_it_does',l:'What it does'},{k:'why_useful',l:'Why useful (shipping)'},
+    {k:'hq_location',l:'HQ Location'},{k:'company_size',l:'Company Size'},
+    {k:'notable_clients',l:'Notable Clients'},{k:'key_competitor',l:'Key Competitor'},
+    {k:'competitor_does',l:'Competitor Does'},{k:'cluster',l:'ESG Cluster'},{k:'subtopic',l:'ESG Subtopic'}
+  ];
+  var acts=document.createElement('div');acts.className='cmp-acts';
+  items.forEach(function(d){
+    var btn=document.createElement('button');btn.className='btn-remove';btn.textContent='Remove: '+d.tool_platform;
+    btn.addEventListener('click',function(){toggleCmp(d.id);renderCompare();});acts.appendChild(btn);
+  });
+  wrap.appendChild(acts);
+  var scrl=document.createElement('div');scrl.className='tbl-wrap';
+  var tbl=document.createElement('table');tbl.className='cmp-tbl';
+  var thead=document.createElement('thead');
+  var hrow=document.createElement('tr');
+  var fth=document.createElement('th');fth.textContent='Field';hrow.appendChild(fth);
+  items.forEach(function(d){
+    var th=document.createElement('th');
+    var cell=document.createElement('div');cell.className='th-logo-cell';
+    cell.appendChild(makeLogo(d,'th-logo','th-logo-fb',32));
+    var sp=document.createElement('span');sp.textContent=d.tool_platform;cell.appendChild(sp);th.appendChild(cell);hrow.appendChild(th);
+  });
+  thead.appendChild(hrow);tbl.appendChild(thead);
+  var tbody=document.createElement('tbody');
+  FLDS.forEach(function(f){
+    var tr=document.createElement('tr');
+    var td0=document.createElement('td');td0.textContent=f.l;tr.appendChild(td0);
+    items.forEach(function(d){var td=document.createElement('td');td.textContent=fieldVal(d,f.k)||'\u2014';tr.appendChild(td);});
+    tbody.appendChild(tr);
+  });
+  tbl.appendChild(tbody);scrl.appendChild(tbl);wrap.appendChild(scrl);
+}
+
+
+/* ── USER COMPANIES ── */
+function getUserCos(){try{return JSON.parse(localStorage.getItem('esg_user_cos')||'[]');}catch(e){return[];}}
+function setUserCos(a){localStorage.setItem('esg_user_cos',JSON.stringify(a));}
+
+function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+
+function getAllData(){
+  var base=DATA.slice();
+  var dbIds=sharedCompanies.map(function(d){return d.id;});
+  var localOnly=getUserCos().filter(function(c){return dbIds.indexOf(c.id)<0;});
+  return base.concat(sharedCompanies).concat(localOnly);
+}
+
+/* Patch fieldVal to work with user companies too */
+var _origFieldVal=fieldVal;
+fieldVal=function(d,key){
+  if(d.isUserAdded){
+    var edits=getSaved();
+    var k=String(d.id)+':'+key;
+    return (edits[k]!==undefined)?edits[k]:d[key];
+  }
+  return _origFieldVal(d,key);
+};
+
+/* Patch renderHome, renderDir, renderCompare to use getAllData */
+
+
+/* Override renderDir to use getAllData */
+;
+
+/* Override renderDetail to also handle user companies + show Edit/Delete for user ones */
+var _origRenderDetail=renderDetail;
+renderDetail=function(slug){
+  var all=getAllData();
+  var d=all.find(function(x){return x.slug===slug;});
+  if(!d){_origRenderDetail(slug);return;}
+  if(!d.isUserAdded){_origRenderDetail(slug);return;}
+
+  /* Render user-added company detail */
+  currentSlug=slug;
+  var wrap=document.getElementById('detail-wrap');wrap.innerHTML='';
+  var inC=getCmp().indexOf(d.id)>=0;
+
+  var hero=document.createElement('div');hero.className='det-hero';
+  var heroTop=document.createElement('div');heroTop.className='det-hero-top';
+  var logoWrap=document.createElement('div');logoWrap.className='det-logo-wrap';
+  logoWrap.appendChild(makeLogo(d,'det-logo','det-logo-fb',72));
+  var uploadBtn=document.createElement('div');uploadBtn.className='logo-upload-btn';uploadBtn.title='Upload logo';uploadBtn.textContent='\u270F';
+  var fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='image/*';fileInput.className='logo-file-input';
+  fileInput.addEventListener('change',function(){
+    var file=this.files[0];if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      var logos=getLogos();logos[String(d.id)]=ev.target.result;setLogos(logos);
+      toast('\uD83D\uDDBC\uFE0F Logo saved!');renderDetail(slug);
+    };reader.readAsDataURL(file);
+  });
+  uploadBtn.addEventListener('click',function(){fileInput.click();});
+  logoWrap.appendChild(uploadBtn);logoWrap.appendChild(fileInput);heroTop.appendChild(logoWrap);
+
+  var tw=document.createElement('div');tw.className='det-title-wrap';
+  var titleWrap2=document.createElement('div');titleWrap2.style.cssText='display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.15rem;';
+  var title=document.createElement('h1');title.textContent=d.tool_platform;title.style.cssText='margin:0;';
+  var ub=document.createElement('span');ub.className='user-badge';ub.textContent='Added by you';title.appendChild(ub);
+  var editNameBtn2=document.createElement('button');editNameBtn2.className='btn-edit-name';editNameBtn2.textContent='✏';editNameBtn2.title='Edit company name';
+  editNameBtn2.addEventListener('click',function(){
+    var ex=titleWrap2.querySelector('.name-edit-inp');if(ex){ex.closest('.name-edit-wrap').remove();return;}
+    var ew=document.createElement('div');ew.className='name-edit-wrap';
+    var inp=document.createElement('input');inp.type='text';inp.className='name-edit-inp form-input';
+    inp.value=d.tool_platform;inp.style.cssText='font-size:1rem;font-weight:600;width:100%;';
+    var sv=document.createElement('button');sv.className='btn-field-save';sv.textContent='✓ Save name';
+    var cn=document.createElement('button');cn.className='btn-field-cancel';cn.textContent='Cancel';
+    sv.addEventListener('click',function(){
+      var v=inp.value.trim();if(!v)return;
+      var uc=getUserCos();var idx2=uc.findIndex(function(x){return x.id===d.id;});
+      if(idx2>=0){uc[idx2].tool_platform=v;setUserCos(uc);}
+      sbUpdate('companies',d.id,{tool_platform:v}).catch(function(){});
+      title.firstChild.textContent=v;ew.remove();toast('✓ Name saved!');
+    });
+    cn.addEventListener('click',function(){ew.remove();});
+    ew.appendChild(inp);ew.appendChild(sv);ew.appendChild(cn);
+    titleWrap2.appendChild(ew);inp.focus();inp.select();
+  });
+  titleWrap2.appendChild(title);titleWrap2.appendChild(editNameBtn2);
+  var dtags=document.createElement('div');dtags.className='det-tags';
+  var dc=document.createElement('span');dc.className='tag tag-cl';dc.textContent=d.cluster;
+  var ds2=document.createElement('span');ds2.className='tag tag-sub';ds2.textContent=d.subtopic;
+  dtags.appendChild(dc);dtags.appendChild(ds2);
+  tw.appendChild(title);tw.appendChild(dtags);heroTop.appendChild(tw);hero.appendChild(heroTop);
+
+  var acts=document.createElement('div');acts.className='det-acts';
+  var websiteBtnSlot=document.createElement('span');
+  var editUrlBtn2=document.createElement('button');editUrlBtn2.className='btn-edit-url';
+  function rebuildWS(){
+    websiteBtnSlot.innerHTML='';
+    var curUrl=d.website||'';
+    editUrlBtn2.textContent='\u270F '+(curUrl?'Edit URL':'+ Add URL');
+    if(curUrl){
+      var lnk=document.createElement('a');lnk.href=curUrl;lnk.target='_blank';lnk.rel='noopener';
+      lnk.className='btn-primary';lnk.textContent='\uD83D\uDD17 Visit Website';websiteBtnSlot.appendChild(lnk);
+    } else {
+      var nourl=document.createElement('span');nourl.className='btn-nourl';nourl.textContent='Website not provided';websiteBtnSlot.appendChild(nourl);
+    }
+  }
+  rebuildWS();
+  editUrlBtn2.addEventListener('click',function(){
+    var ex=document.getElementById('url-editor-popup2');if(ex){ex.remove();return;}
+    var editor=document.createElement('div');editor.id='url-editor-popup2';editor.className='url-editor';
+    var inp=document.createElement('input');inp.type='text';inp.className='url-input';inp.value=d.website||'';inp.placeholder='https://example.com';
+    var sv=document.createElement('button');sv.className='btn-field-save';sv.textContent='\u2713 Save';
+    var cl2=document.createElement('button');cl2.className='btn-discard';cl2.textContent='Clear';
+    var cn=document.createElement('button');cn.className='btn-field-cancel';cn.textContent='Cancel';
+    sv.addEventListener('click',function(){
+      var v=inp.value.trim();
+      var uc=getUserCos();var idx2=uc.findIndex(function(x){return x.id===d.id;});
+      if(idx2>=0){uc[idx2].website=v;setUserCos(uc);d.website=v;}
+      toast('\u2713 Website saved!');editor.remove();rebuildWS();
+    });
+    cl2.addEventListener('click',function(){
+      var uc=getUserCos();var idx2=uc.findIndex(function(x){return x.id===d.id;});
+      if(idx2>=0){uc[idx2].website='';setUserCos(uc);d.website='';}
+      toast('URL cleared');editor.remove();rebuildWS();
+    });
+    cn.addEventListener('click',function(){editor.remove();});
+    editor.appendChild(inp);editor.appendChild(sv);editor.appendChild(cl2);editor.appendChild(cn);
+    acts.parentNode.insertBefore(editor,acts.nextSibling);inp.focus();inp.select();
+  });
+  var cmpBtn2=document.createElement('button');cmpBtn2.className='btn-secondary'+(inC?' in-cmp':'');
+  cmpBtn2.textContent=inC?'\u2713 In Compare':'+ Add to Compare';
+  cmpBtn2.addEventListener('click',function(){
+    toggleCmp(d.id);var now=getCmp().indexOf(d.id)>=0;
+    cmpBtn2.textContent=now?'\u2713 In Compare':'+ Add to Compare';
+    cmpBtn2.className='btn-secondary'+(now?' in-cmp':'');
+  });
+  var editBtn2=document.createElement('button');editBtn2.className='btn-edit-company';
+  editBtn2.innerHTML='\u270F Edit Company';
+  editBtn2.addEventListener('click',function(){go('#/add?edit='+d.id);});
+  var delBtn=document.createElement('button');delBtn.className='btn-delete-company';
+  delBtn.textContent='\uD83D\uDDD1 Delete';
+  delBtn.addEventListener('click',function(){
+    if(!confirm('Delete '+d.tool_platform+'? This cannot be undone.'))return;
+    var uc=getUserCos().filter(function(x){return x.id!==d.id;});
+    setUserCos(uc);var c=getCmp().filter(function(x){return x!==d.id;});setCmp(c);
+    toast('Company deleted');go('#/companies');
+  });
+  acts.appendChild(websiteBtnSlot);acts.appendChild(editUrlBtn2);acts.appendChild(cmpBtn2);acts.appendChild(editBtn2);acts.appendChild(delBtn);
+  hero.appendChild(acts);wrap.appendChild(hero);
+
+  /* Fields */
+  var grid=document.createElement('div');grid.className='det-grid';
+  var FLDS=[
+    {k:'what_it_does',l:'What it does',full:true,hi:false},
+    {k:'why_useful',l:'Why useful for a shipping company',full:true,hi:true},
+    {k:'hq_location',l:'HQ Location',full:false,hi:false},
+    {k:'company_size',l:'Company Size',full:false,hi:false},
+    {k:'notable_clients',l:'Notable Shipping Industry Clients',full:true,hi:false},
+    {k:'key_competitor',l:'Key Competitor',full:false,hi:false},
+    {k:'competitor_does',l:'What the Competitor Does',full:true,hi:false},
+    {k:'source_notes',l:'Source / Notes',full:true,hi:false},
+    {k:'cluster',l:'ESG Cluster',full:false,hi:false},
+    {k:'subtopic',l:'ESG Subtopic',full:false,hi:false}
+  ];
+  FLDS.forEach(function(f){
+    var curVal=d[f.k];var hasVal=curVal&&curVal.trim();
+    var box=document.createElement('div');box.className='det-field'+(f.full?' full':'')+(f.hi?' highlight':'');
+    var lbl=document.createElement('div');lbl.className='fld-lbl';
+    var lblTxt=document.createElement('span');lblTxt.textContent=f.l;lbl.appendChild(lblTxt);
+    var editBtn3=document.createElement('button');editBtn3.className='btn-edit-field';editBtn3.textContent='\u270F Edit';
+    editBtn3.addEventListener('click',function(e){e.stopPropagation();openFieldEditor(box,d,f.k,f.l,curVal);});
+    lbl.appendChild(editBtn3);
+    var val=document.createElement('div');val.className='fld-val'+(hasVal?'':' empty');
+    val.textContent=hasVal?curVal:'Not provided \u2014 click \u270F Edit to add';
+    box.appendChild(lbl);box.appendChild(val);grid.appendChild(box);
+  });
+  wrap.appendChild(grid);
+};
+
+/* ── ADD / EDIT COMPANY FORM ── */
+var editingId=null;
+
+function renderAddPage(params){
+  editingId=null;
+  var editId=params&&params.edit?String(params.edit):null;
+  var existing=null;
+  if(editId){
+    /* search both localStorage and sharedCompanies */
+    existing=getUserCos().find(function(x){return String(x.id)===editId;});
+    if(!existing) existing=sharedCompanies.find(function(x){return String(x.id)===editId;});
+    if(existing) editingId=existing.id;
+  }
+
+  var wrap=document.getElementById('add-wrap');wrap.innerHTML='';
+
+  /* Subtopic map: cluster -> subtopics */
+  var SUBTOPIC_MAP={
+    'Climate Change':['Climate Change Mitigation','Climate Change Adaptation'],
+    'Environment & Ecosystems':['Pollution','Biodiversity & Ecosystems','Resource Use (Waste, Water, Circularity)'],
+    'Talent Management & Diversity':['Talent Development','Diversity, Equity and Inclusion'],
+    'Human & Labour Rights':['People and Working Conditions','Human Rights Due Diligence'],
+    'Health & Safety':['Health and Safety','Security'],
+    'Uncategorized':['Uncategorized']
+  };
+
+  var form=document.createElement('div');form.className='add-form';
+
+  /* ── SECTION 1: Core Info (all mandatory) ── */
+  var sec1=document.createElement('div');sec1.className='form-section';
+  var st1=document.createElement('div');st1.className='form-section-title';
+  st1.innerHTML='\u2B50 Required Information';
+  sec1.appendChild(st1);
+
+  /* Mandatory note */
+  var reqNote=document.createElement('p');reqNote.className='form-req-note';
+  reqNote.innerHTML='Fields marked <span class="req-star">\u2605</span> are required.';
+  sec1.appendChild(reqNote);
+
+  var g1=document.createElement('div');g1.className='form-grid';
+
+  /* 1. Name - mandatory */
+  g1.appendChild(mkField('tool_platform','Company / Tool Name','text','e.g. Acme Climate AI',true,existing,'full'));
+
+  /* 2. Website - mandatory */
+  g1.appendChild(mkField('website','Website URL','text','https://example.com',true,existing,''));
+
+  /* 3. ESG Cluster - mandatory dropdown */
+  var clF=document.createElement('div');clF.className='form-field';
+  var clL=document.createElement('label');clL.className='form-label req';clL.htmlFor='f-cluster';
+  clL.innerHTML='ESG Cluster <span class="req-star">\u2605</span>';
+  var clS=document.createElement('select');clS.className='form-select';clS.id='f-cluster';
+  var clOpts=[['','-- Select ESG Cluster --'],['Climate Change','Climate Change'],['Environment & Ecosystems','Environment & Ecosystems'],['Talent Management & Diversity','Talent Management & Diversity'],['Human & Labour Rights','Human & Labour Rights'],['Health & Safety','Health & Safety'],['Uncategorized','Uncategorized']];
+  clOpts.forEach(function(o){var op=document.createElement('option');op.value=o[0];op.textContent=o[1];if(existing&&existing.cluster===o[0])op.selected=true;clS.appendChild(op);});
+  clF.appendChild(clL);clF.appendChild(clS);g1.appendChild(clF);
+
+  /* 4. ESG Subtopic - mandatory dropdown, changes based on cluster */
+  var subF=document.createElement('div');subF.className='form-field';
+  var subL=document.createElement('label');subL.className='form-label req';subL.htmlFor='f-subtopic';
+  subL.innerHTML='ESG Subtopic <span class="req-star">\u2605</span>';
+  var subS=document.createElement('select');subS.className='form-select';subS.id='f-subtopic';
+
+  function populateSubtopics(cluster,selectedSub){
+    subS.innerHTML='';
+    var placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='-- Select Subtopic --';subS.appendChild(placeholder);
+    var subs=SUBTOPIC_MAP[cluster]||[];
+    subs.forEach(function(s){
+      var op=document.createElement('option');op.value=s;op.textContent=s;
+      if(selectedSub&&selectedSub===s)op.selected=true;
+      subS.appendChild(op);
+    });
+    subF.style.opacity=subs.length?'1':'0.4';
+    subS.disabled=!subs.length;
+  }
+
+  populateSubtopics(existing?existing.cluster:'', existing?existing.subtopic:'');
+
+  clS.addEventListener('change',function(){
+    populateSubtopics(this.value,'');
+    subS.className='form-select';/* clear error */
+  });
+
+  subF.appendChild(subL);subF.appendChild(subS);g1.appendChild(subF);
+
+  sec1.appendChild(g1);form.appendChild(sec1);
+
+  /* ── SECTION 2: Descriptions (mandatory) ── */
+  var sec2=document.createElement('div');sec2.className='form-section';
+  var st2=document.createElement('div');st2.className='form-section-title';
+  st2.innerHTML='\uD83D\uDCDD Descriptions';
+  sec2.appendChild(st2);
+  var g2=document.createElement('div');g2.className='form-grid';
+  g2.appendChild(mkField('what_it_does','What it does','textarea','Describe what this company / tool does\u2026',true,existing,'full'));
+  g2.appendChild(mkField('why_useful','Why useful for a shipping company','textarea','Explain why this is relevant for shipping & supply chain\u2026',true,existing,'full'));
+  sec2.appendChild(g2);form.appendChild(sec2);
+
+  /* ── SECTION 3: Company Details (optional) ── */
+  var sec3=document.createElement('div');sec3.className='form-section';
+  var st3=document.createElement('div');st3.className='form-section-title';
+  st3.innerHTML='\uD83C\uDFE2 Company Details <span style="font-size:.75rem;font-weight:400;color:var(--muted);font-family:sans-serif;">(optional)</span>';
+  sec3.appendChild(st3);
+  var g3=document.createElement('div');g3.className='form-grid';
+  g3.appendChild(mkField('hq_location','HQ Location','text','e.g. London, UK',false,existing,''));
+  g3.appendChild(mkField('company_size','Company Size','text','e.g. 50\u2013200 employees, Founded 2020',false,existing,''));
+  g3.appendChild(mkField('notable_clients','Notable Shipping Clients','textarea','List key clients\u2026',false,existing,'full'));
+  sec3.appendChild(g3);form.appendChild(sec3);
+
+  /* ── SECTION 4: Competitor Info (optional) ── */
+  var sec4=document.createElement('div');sec4.className='form-section';
+  var st4=document.createElement('div');st4.className='form-section-title';
+  st4.innerHTML='\uD83D\uDD0D Competitor & Sources <span style="font-size:.75rem;font-weight:400;color:var(--muted);font-family:sans-serif;">(optional)</span>';
+  sec4.appendChild(st4);
+  var g4=document.createElement('div');g4.className='form-grid';
+  g4.appendChild(mkField('key_competitor','Key Competitor','text','e.g. CompetitorName',false,existing,''));
+  g4.appendChild(mkField('competitor_does','What the Competitor Does','textarea','Brief description\u2026',false,existing,''));
+  g4.appendChild(mkField('source_notes','Source / Notes','textarea','Links, references, notes\u2026',false,existing,'full'));
+  sec4.appendChild(g4);form.appendChild(sec4);
+
+  /* ── Actions ── */
+  var actDiv=document.createElement('div');actDiv.className='form-actions';
+  var submitBtn=document.createElement('button');submitBtn.className='btn-submit';
+  submitBtn.textContent=existing?'\u2713 Save Changes':'\u271A Add Company';
+  submitBtn.addEventListener('click',function(){submitCompany(existing);});
+  var resetBtn=document.createElement('button');resetBtn.className='btn-reset';
+  resetBtn.textContent=existing?'Cancel':'Clear Form';
+  resetBtn.addEventListener('click',function(){
+    if(existing){go('#/company/'+existing.slug);}
+    else{wrap.innerHTML='';renderAddPage(null);}
+  });
+  actDiv.appendChild(submitBtn);actDiv.appendChild(resetBtn);
+  form.appendChild(actDiv);
+  wrap.appendChild(form);
+
+  /* ── Existing companies list ── */
+  if(!existing){
+    var ucList=document.createElement('div');ucList.className='user-companies-list';
+    var ucTitle=document.createElement('h2');ucTitle.textContent='Your Added Companies';
+    ucList.appendChild(ucTitle);
+    var allAdded=getAllData().filter(function(d){return d.isUserAdded;});
+    if(!allAdded.length){
+      var emp=document.createElement('p');emp.className='empty-user-list';emp.textContent='No companies added yet. Fill in the form above to add your first one.';
+      ucList.appendChild(emp);
+    } else {
+      allAdded.forEach(function(co){
+        var item=document.createElement('div');item.className='user-co-item';
+        var info=document.createElement('div');
+        var nm=document.createElement('div');nm.className='user-co-name';nm.textContent=co.tool_platform;
+        var mt=document.createElement('div');mt.className='user-co-meta';
+        mt.textContent=co.cluster+(co.subtopic?' \u00b7 '+co.subtopic:'')+(co.hq_location?' \u00b7 '+co.hq_location.split('\n')[0]:'');
+        info.appendChild(nm);info.appendChild(mt);item.appendChild(info);
+        var btns=document.createElement('div');btns.className='user-co-btns';
+        var vb=document.createElement('button');vb.className='btn-co-edit';vb.textContent='View';
+        vb.addEventListener('click',function(){go('#/company/'+co.slug);});
+        var eb2=document.createElement('button');eb2.className='btn-co-edit';eb2.textContent='\u270F Edit';
+        eb2.addEventListener('click',function(){go('#/add?edit='+String(co.id));});
+        var db=document.createElement('button');db.className='btn-co-delete';db.textContent='Delete';
+        db.addEventListener('click',function(){
+          if(!confirm('Delete '+co.tool_platform+'?'))return;
+          var uc2=getUserCos().filter(function(x){return x.id!==co.id;});setUserCos(uc2);
+          sbDelete('companies',co.id).catch(function(){});
+          toast('Deleted');renderAddPage(null);
+        });
+        btns.appendChild(vb);btns.appendChild(eb2);btns.appendChild(db);item.appendChild(btns);
+        ucList.appendChild(item);
+      });
+    }
+    wrap.appendChild(ucList);
+  }
+
+  /* Export/Import panel */
+
+  var wrap=document.getElementById('add-wrap');
+  if(!wrap)return;
+
+  /* Build export/import panel */
+  var panel=document.createElement('div');panel.className='data-mgmt';
+
+  var title=document.createElement('div');title.className='data-mgmt-title';
+  title.textContent='\uD83D\uDCCB Data Management \u2014 Export & Import';
+  panel.appendChild(title);
+
+  var desc=document.createElement('div');desc.className='data-mgmt-desc';
+  desc.innerHTML='Your added companies and field edits are stored <strong>only in this browser</strong>. '
+    +'Use Export to save a file you can share with colleagues or import on another device. '
+    +'Import merges data without overwriting \u2014 safe to run multiple times.';
+  panel.appendChild(desc);
+
+  /* Row 1: Companies & Edits */
+  var r1label=document.createElement('div');
+  r1label.style.cssText='font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--orange);margin-bottom:.5rem;';
+  r1label.textContent='Companies & Field Edits';
+  panel.appendChild(r1label);
+
+  var row1=document.createElement('div');row1.className='data-mgmt-row';
+
+  var expBtn=document.createElement('button');expBtn.className='btn-export';
+  expBtn.innerHTML='\u2B07\uFE0F Export my data (.json)';
+  expBtn.addEventListener('click',exportAllData);
+  row1.appendChild(expBtn);
+
+  var impBtn=document.createElement('button');impBtn.className='btn-import';
+  impBtn.innerHTML='\u2B06\uFE0F Import from file';
+  var impInput=document.createElement('input');impInput.type='file';impInput.accept='.json';impInput.className='import-file-input';
+  impInput.addEventListener('change',function(){importData(this.files[0]);this.value='';});
+  impBtn.addEventListener('click',function(){impInput.click();});
+  row1.appendChild(impBtn);row1.appendChild(impInput);
+
+  var note1=document.createElement('div');note1.className='import-note';
+  note1.textContent='Export includes: added companies + all field edits. Logos exported separately below.';
+  panel.appendChild(row1);panel.appendChild(note1);
+
+  /* Divider */
+  var div1=document.createElement('div');div1.className='data-mgmt-divider';panel.appendChild(div1);
+
+  /* Row 2: Logos */
+  var r2label=document.createElement('div');
+  r2label.style.cssText='font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--orange);margin-bottom:.5rem;';
+  r2label.textContent='Custom Logos (large file)';
+  panel.appendChild(r2label);
+
+  var row2=document.createElement('div');row2.className='data-mgmt-row';
+  var expLogos=document.createElement('button');expLogos.className='btn-export-edits';
+  expLogos.innerHTML='\uD83D\uDDBC\uFE0F Export logos (.json)';
+  expLogos.addEventListener('click',exportLogos);
+  row2.appendChild(expLogos);
+
+  var impLogos=document.createElement('button');impLogos.className='btn-import';
+  impLogos.innerHTML='\u2B06\uFE0F Import logos';
+  var impLogInput=document.createElement('input');impLogInput.type='file';impLogInput.accept='.json';impLogInput.className='import-file-input';
+  impLogInput.addEventListener('change',function(){importLogos(this.files[0]);this.value='';});
+  impLogos.addEventListener('click',function(){impLogInput.click();});
+  row2.appendChild(impLogos);row2.appendChild(impLogInput);
+  panel.appendChild(row2);
+
+  var note2=document.createElement('div');note2.className='import-note';
+  note2.textContent='Logos are base64 images and can be large \u2014 exported as a separate file for easier sharing.';
+  panel.appendChild(note2);
+
+  wrap.appendChild(panel);
+
+}
+
+function mkField(key,label,type,placeholder,required,existing,extraClass){
+  var div=document.createElement('div');div.className='form-field'+(extraClass?' '+extraClass:'');
+  var lbl=document.createElement('label');lbl.className='form-label'+(required?' req':'');lbl.htmlFor='f-'+key;
+  lbl.textContent=label;
+  if(required){var star=document.createElement('span');star.className='req-star';star.textContent=' ★';lbl.appendChild(star);}
+  else{var opt=document.createElement('span');opt.textContent=' optional';opt.style.cssText='color:var(--muted);font-weight:400;font-size:.7rem;text-transform:none;letter-spacing:0;';lbl.appendChild(opt);}
+  var inp;
+  if(type==='textarea'){
+    inp=document.createElement('textarea');inp.className='form-textarea';inp.rows=4;
+  } else {
+    inp=document.createElement('input');inp.type=type;inp.className='form-input';
+  }
+  inp.id='f-'+key;inp.placeholder=placeholder;
+  if(existing&&existing[key])inp.value=existing[key];
+  div.appendChild(lbl);div.appendChild(inp);
+  return div;
+}
+
+function getFieldVal(key){
+  var el=document.getElementById('f-'+key);
+  return el?el.value.trim():'';
+}
+
+function submitCompany(existing){
+  /* Validate */
+  var name=getFieldVal('tool_platform');
+  var cluster=document.getElementById('f-cluster')?document.getElementById('f-cluster').value:'';
+  var website=getFieldVal('website');
+  var subtopic=document.getElementById('f-subtopic')?document.getElementById('f-subtopic').value:'';
+  var whatItDoes=getFieldVal('what_it_does');
+  var whyUseful=getFieldVal('why_useful');
+
+  /* Clear previous errors */
+  ['f-tool_platform','f-website','f-cluster','f-subtopic','f-what_it_does','f-why_useful'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.className=el.tagName==='SELECT'?'form-select':'form-input'+(el.tagName==='TEXTAREA'?' form-textarea':'');
+  });
+
+  var errors=[];
+  if(!name){var el=document.getElementById('f-tool_platform');if(el)el.className='form-input error';errors.push('Company name');}
+  if(!website){var el2=document.getElementById('f-website');if(el2)el2.className='form-input error';errors.push('Website URL');}
+  if(!cluster){var el3=document.getElementById('f-cluster');if(el3)el3.className='form-select error';errors.push('ESG Cluster');}
+  if(!subtopic){var el4=document.getElementById('f-subtopic');if(el4)el4.className='form-select error';errors.push('ESG Subtopic');}
+  if(!whatItDoes){var el5=document.getElementById('f-what_it_does');if(el5)el5.className='form-textarea error';errors.push('What it does');}
+  if(!whyUseful){var el6=document.getElementById('f-why_useful');if(el6)el6.className='form-textarea error';errors.push('Why useful for shipping');}
+
+  if(errors.length){
+    toast('⚠ Please fill in: '+errors.join(', '));
+    /* Scroll to first error */
+    var firstErr=document.querySelector('.form-input.error,.form-select.error,.form-textarea.error');
+    if(firstErr)firstErr.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  var uc=getUserCos();
+
+  if(existing){
+    /* Update existing */
+    var idx3=uc.findIndex(function(x){return x.id===existing.id;});
+    if(idx3>=0){
+      uc[idx3].tool_platform=name;
+      uc[idx3].cluster=cluster;
+      uc[idx3].subtopic=getFieldVal('subtopic')||cluster;
+      uc[idx3].website=getFieldVal('website');
+      uc[idx3].hq_location=getFieldVal('hq_location');
+      uc[idx3].company_size=getFieldVal('company_size');
+      uc[idx3].what_it_does=getFieldVal('what_it_does');
+      uc[idx3].why_useful=getFieldVal('why_useful');
+      uc[idx3].notable_clients=getFieldVal('notable_clients');
+      uc[idx3].key_competitor=getFieldVal('key_competitor');
+      uc[idx3].competitor_does=getFieldVal('competitor_does');
+      uc[idx3].source_notes=getFieldVal('source_notes');
+      uc[idx3].slug=slugify(name);
+      var st=getFieldVal('what_it_does')+' '+getFieldVal('why_useful')+' '+cluster;
+      uc[idx3].searchText=st.toLowerCase();
+      setUserCos(uc);toast('\u2713 Company updated!');go('#/company/'+uc[idx3].slug);
+    }
+  } else {
+    /* New company */
+    var newId='u'+(Date.now());
+    var slug2=slugify(name);
+    /* Avoid slug collision */
+    var all2=getAllData();
+    if(all2.find(function(x){return x.slug===slug2;})){slug2=slug2+'-'+newId;}
+    var subtopic2=getFieldVal('subtopic')||cluster;
+    var website2=getFieldVal('website');
+    var st2=(name+' '+getFieldVal('what_it_does')+' '+getFieldVal('why_useful')+' '+cluster+' '+subtopic2).toLowerCase();
+    var co={
+      id:newId,slug:slug2,tool_platform:name,cluster:cluster,subtopic:subtopic2,
+      website:website2,logo_domain:null,
+      hq_location:getFieldVal('hq_location'),company_size:getFieldVal('company_size'),
+      what_it_does:getFieldVal('what_it_does'),why_useful:getFieldVal('why_useful'),
+      notable_clients:getFieldVal('notable_clients'),key_competitor:getFieldVal('key_competitor'),
+      competitor_does:getFieldVal('competitor_does'),source_notes:getFieldVal('source_notes'),
+      searchText:st2,isUserAdded:true
+    };
+    uc.push(co);setUserCos(uc);
+    toast('\u2713 '+name+' added to directory!');go('#/company/'+slug2);
+  }
+}
+
+
+
+/* ── EXPORT / IMPORT ── */
+
+function exportAllData(){
+  var payload={
+    version:1,
+    exported:new Date().toISOString(),
+    user_companies:getUserCos(),
+    edits:getSaved(),
+    logos:{}   /* logos are base64 - too large, export separately */
+  };
+  var json=JSON.stringify(payload,null,2);
+  var blob=new Blob([json],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='ES_startups_data_'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(url);
+  toast('\uD83D\uDCE5 Data exported! Share the .json file with colleagues.');
+}
+
+function exportLogos(){
+  var logos=getLogos();
+  if(!Object.keys(logos).length){toast('\u26A0 No custom logos saved yet.');return;}
+  var blob=new Blob([JSON.stringify(logos,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;
+  a.download='ES_logos_'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(url);
+  toast('\uD83D\uDDBC\uFE0F Logos exported!');
+}
+
+function importData(file){
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      var payload=JSON.parse(ev.target.result);
+      /* Merge user companies */
+      if(payload.user_companies&&Array.isArray(payload.user_companies)){
+        var existing=getUserCos();
+        var existingIds=existing.map(function(x){return x.id;});
+        var added=0;
+        payload.user_companies.forEach(function(co){
+          if(existingIds.indexOf(co.id)<0){existing.push(co);added++;}
+          else{
+            /* Update existing */
+            var idx=existing.findIndex(function(x){return x.id===co.id;});
+            if(idx>=0)existing[idx]=co;
+          }
+        });
+        setUserCos(existing);
+      }
+      /* Merge edits */
+      if(payload.edits&&typeof payload.edits==='object'){
+        var curEdits=getSaved();
+        Object.assign(curEdits,payload.edits);
+        setSaved(curEdits);
+      }
+      /* Merge logos */
+      if(payload.logos&&typeof payload.logos==='object'){
+        var curLogos=getLogos();
+        Object.assign(curLogos,payload.logos);
+        setLogos(curLogos);
+      }
+      var coCount=(payload.user_companies||[]).length;
+      var editCount=Object.keys(payload.edits||{}).length;
+      toast('\u2713 Imported: '+coCount+' companies, '+editCount+' field edits. Refreshing\u2026');
+      setTimeout(function(){renderAddPage({});},800);
+    }catch(err){
+      toast('\u26A0 Import failed: invalid file format.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function importLogos(file){
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      var logos=JSON.parse(ev.target.result);
+      var cur=getLogos();Object.assign(cur,logos);setLogos(cur);
+      toast('\u2713 Logos imported!');
+    }catch(e){toast('\u26A0 Logo import failed.');}
+  };
+  reader.readAsText(file);
+}
+
+/* Patch renderAddPage to inject the export/import panel */;
+
+
+/* ════════════════════════════════════════
+   SUPABASE LIVE DATABASE
+   ════════════════════════════════════════ */
+var SB_URL = 'https://obgavvijdaawezumztyr.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9iZ2F2dmlqZGFhd2V6dW16dHlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4Mzk2MzUsImV4cCI6MjA4OTQxNTYzNX0.QIM0O624xPDh_F4wwmJHp43h3ZkliUVwXlFCrbIksQg';
+
+/* ── low-level fetch helpers ── */
+function sbHeaders(){
+  return {
+    'apikey': SB_KEY,
+    'Authorization': 'Bearer ' + SB_KEY,
+    'Content-Type': 'application/json',
+    'Prefer': 'return=representation'
+  };
+}
+
+function sbGet(table, params){
+  var qs = params ? '?' + params : '';
+  return fetch(SB_URL + '/rest/v1/' + table + qs, {
+    method: 'GET', headers: sbHeaders()
+  }).then(function(r){ return r.json(); });
+}
+
+function sbInsert(table, row){
+  return fetch(SB_URL + '/rest/v1/' + table, {
+    method: 'POST',
+    headers: sbHeaders(),
+    body: JSON.stringify(row)
+  }).then(function(r){ return r.json(); });
+}
+
+function sbUpdate(table, id, row){
+  return fetch(SB_URL + '/rest/v1/' + table + '?id=eq.' + encodeURIComponent(id), {
+    method: 'PATCH',
+    headers: sbHeaders(),
+    body: JSON.stringify(row)
+  }).then(function(r){ return r.json(); });
+}
+
+function sbDelete(table, id){
+  return fetch(SB_URL + '/rest/v1/' + table + '?id=eq.' + encodeURIComponent(id), {
+    method: 'DELETE', headers: sbHeaders()
+  });
+}
+
+/* ── Supabase Realtime (websocket) ── */
+var realtimeWs = null;
+function connectRealtime(){
+  try {
+    var wsUrl = SB_URL.replace('https://','wss://').replace('http://','ws://')
+      + '/realtime/v1/websocket?apikey=' + SB_KEY + '&vsn=1.0.0';
+    realtimeWs = new WebSocket(wsUrl);
+    realtimeWs.onopen = function(){
+      realtimeWs.send(JSON.stringify({
+        topic:'realtime:public:companies',
+        event:'phx_join', payload:{}, ref:'1'
+      }));
+    };
+    realtimeWs.onmessage = function(e){
+      try {
+        var msg = JSON.parse(e.data);
+        if(msg.event === 'INSERT' || msg.event === 'UPDATE' || msg.event === 'DELETE'){
+          /* Reload shared companies and re-render */
+          loadSharedCompanies().then(function(){
+            var hsh = window.location.hash || '#/';
+            if(hsh === '#/' || hsh === '#') renderHome();
+            else if(hsh.startsWith('#/companies')) renderDir();
+          });
+          if(msg.event === 'INSERT'){
+            showLiveToast('\uD83D\uDFE2 ' + (msg.payload && msg.payload.record ? msg.payload.record.tool_platform : 'New company') + ' was just added by someone!');
+          }
+        }
+      } catch(err){}
+    };
+    realtimeWs.onerror = function(){ /* silent - realtime is optional */ };
+    realtimeWs.onclose = function(){
+      /* Reconnect after 5s */
+      setTimeout(connectRealtime, 5000);
+    };
+  } catch(e){ /* WebSocket not available */ }
+}
+
+/* ── In-memory cache of shared companies ── */
+var sharedCompanies = [];
+var sbLoaded = false;
+var sbError = false;
+
+function loadSharedCompanies(){
+  return sbGet('companies', 'is_user_added=eq.true&order=created_at.asc')
+    .then(function(rows){
+      /* Validate: must be array of objects with tool_platform (not error objects) */
+      if(Array.isArray(rows) && rows.length > 0 && rows[0] && rows[0].tool_platform){
+        sharedCompanies = rows.map(function(r){
+          r.isUserAdded = true;
+          r.slug = r.slug || slugify(r.tool_platform);
+          r.searchText = ((r.tool_platform||'') + ' ' + (r.what_it_does||'') + ' ' + (r.cluster||'') + ' ' + (r.subtopic||'')).toLowerCase();
+          return r;
+        });
+        sbLoaded = true; sbError = false;
+      } else if(Array.isArray(rows) && rows.length === 0){
+        /* Empty table is fine */
+        sharedCompanies = [];
+        sbLoaded = true; sbError = false;
+      } else {
+        /* Error response from Supabase - table may not exist yet */
+        sbError = true;
+        sharedCompanies = [];
+      }
+      updateStatusDot();
+      return sharedCompanies;
+    })
+    .catch(function(err){
+      sbError = true; updateStatusDot();
+      return [];
+    });
+}
+
+/* Status dot in nav */
+function updateStatusDot(){
+  var dot = document.getElementById('sb-status');
+  if(!dot) return;
+  if(sbError){
+    dot.title = 'Database offline \u2014 showing local data only';
+    dot.style.background = '#ef4444';
+  } else {
+    dot.title = 'Live database connected';
+    dot.style.background = '#22c55e';
+  }
+}
+
+function showLiveToast(msg){
+  var t = document.getElementById('live-toast');
+  if(!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 4000);
+}
+
+/* Override getAllData to include Supabase companies */
+
+
+/* Override submitCompany to save to Supabase */
+var _origSubmitCompany = submitCompany;
+submitCompany = function(existing){
+  var name = (document.getElementById('f-tool_platform')||{value:''}).value.trim();
+  var cluster = (document.getElementById('f-cluster')||{value:''}).value;
+  var website = (document.getElementById('f-website')||{value:''}).value.trim();
+  var subtopic2b = (document.getElementById('f-subtopic')||{value:''}).value;
+  var whatItDoes = (document.getElementById('f-what_it_does')||{value:''}).value.trim();
+  var whyUseful = (document.getElementById('f-why_useful')||{value:''}).value.trim();
+
+  ['f-tool_platform','f-website','f-cluster','f-subtopic','f-what_it_does','f-why_useful'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.className=el.tagName==='SELECT'?'form-select':'form-input'+(el.tagName==='TEXTAREA'?' form-textarea':'');
+  });
+
+  var errors=[];
+  if(!name){var eA=document.getElementById('f-tool_platform');if(eA)eA.className='form-input error';errors.push('Company name');}
+  if(!website){var eB=document.getElementById('f-website');if(eB)eB.className='form-input error';errors.push('Website URL');}
+  if(!cluster){var eC=document.getElementById('f-cluster');if(eC)eC.className='form-select error';errors.push('ESG Cluster');}
+  if(!subtopic2b){var eD=document.getElementById('f-subtopic');if(eD)eD.className='form-select error';errors.push('ESG Subtopic');}
+  if(!whatItDoes){var eE=document.getElementById('f-what_it_does');if(eE)eE.className='form-textarea error';errors.push('What it does');}
+  if(!whyUseful){var eF=document.getElementById('f-why_useful');if(eF)eF.className='form-textarea error';errors.push('Why useful for shipping');}
+  if(errors.length){
+    toast('⚠ Please fill in: '+errors.join(', '));
+    var firstErr=document.querySelector('.form-input.error,.form-select.error,.form-textarea.error');
+    if(firstErr)firstErr.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  var subtopic2 = (document.getElementById('f-subtopic')||{value:''}).value.trim() || cluster;
+  var id2 = existing ? existing.id : 'u' + Date.now();
+  var slug2 = slugify(name);
+  var all2 = getAllData();
+  if(!existing && all2.find(function(x){ return x.slug === slug2; })){ slug2 = slug2 + '-' + id2; }
+
+  var row = {
+    id: id2, tool_platform: name, cluster: cluster, subtopic: subtopic2,
+    website: (document.getElementById('f-website')||{value:''}).value.trim(),
+    hq_location: (document.getElementById('f-hq_location')||{value:''}).value.trim(),
+    company_size: (document.getElementById('f-company_size')||{value:''}).value.trim(),
+    what_it_does: (document.getElementById('f-what_it_does')||{value:''}).value.trim(),
+    why_useful: (document.getElementById('f-why_useful')||{value:''}).value.trim(),
+    notable_clients: (document.getElementById('f-notable_clients')||{value:''}).value.trim(),
+    key_competitor: (document.getElementById('f-key_competitor')||{value:''}).value.trim(),
+    competitor_does: (document.getElementById('f-competitor_does')||{value:''}).value.trim(),
+    source_notes: (document.getElementById('f-source_notes')||{value:''}).value.trim(),
+    is_user_added: true,
+    logo_domain: null
+  };
+
+  /* Also keep slug in the row for routing */
+  row.slug = slug2;
+
+  toast('\u23F3 Saving to shared database\u2026');
+
+  var promise = existing
+    ? sbUpdate('companies', existing.id, row)
+    : sbInsert('companies', row);
+
+  promise.then(function(result){
+    if(result && !result.error && !result.message){
+      /* Success - reload from DB */
+      return loadSharedCompanies().then(function(){
+        toast('\u2705 ' + name + ' saved and visible to everyone!');
+        go('#/company/' + slug2);
+      });
+    } else {
+      /* DB failed - fall back to localStorage */
+      var errMsg = (result && result.message) ? result.message : 'DB error';
+      toast('\u26A0 DB save failed (' + errMsg + ') \u2014 saved locally instead.');
+      _origSubmitCompany(existing);
+    }
+  }).catch(function(){
+    toast('\u26A0 No connection \u2014 saved locally instead.');
+    _origSubmitCompany(existing);
+  });
+};
+
+/* Override delete in renderDetail for user companies */
+/* Hook into the delete button - patch after renderDetail */;
+
+/* Init on load */
+window.addEventListener('load', function(){
+  /* Load shared companies then render */
+  loadSharedCompanies().then(function(){
+    parseHash();
+  });
+  connectRealtime();
+});
+
+</script></body></html>
