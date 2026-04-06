@@ -1681,8 +1681,7 @@ submitCompany = function(existing){
     logo_domain: null
   };
 
-  /* Also keep slug in the row for routing */
-  row.slug = slug2;
+  /* slug is generated on-the-fly, don't send to DB */
 
   toast('\u23F3 Saving to shared database\u2026');
 
